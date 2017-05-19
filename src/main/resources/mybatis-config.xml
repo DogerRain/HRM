@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 配置domain包下类的别名 -->
+	<!-- 
+	<typeAliases>
+		<package name="com.xiaoysec.hrm.*.entity" />
+	</typeAliases>
+ 	-->
+ 	
+	<!-- dao包下的所有接口作为mapper -->
+   
+	<mappers>
+		<package name="com.xiaoysec.hrm" />
+	</mappers>
+</configuration>
