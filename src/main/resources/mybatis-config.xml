@@ -13,7 +13,7 @@
  	
 	<!-- dao包下的所有接口作为mapper -->
    
-	<mappers>
+	<!--  <mappers>
 		<package name="com.xiaoysec.hrm" />
-	</mappers>
+	</mappers>  -->
 </configuration>
