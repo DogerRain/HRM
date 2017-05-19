@@ -4,12 +4,24 @@
 *.jar
 *.war
 *.ear
+*.zip
+*.rar
+*.idea
+*.iml
 
 # ignore Maven generated target folders
-target
+/indexes/*
+/target/*
+/src/main/webapp/WEB-INF/classes/*
+/target/
+
 
 # ignore eclipse files
 .project
 .classpath
-.settings
+.settings/*
 .metadata
+.mymetadata
+.checkstyle
+
+
