@@ -1,1 +1,25 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.rar
+*.idea
+*.iml
+
+# ignore Maven generated target folders
+/indexes/*
+/target/*
+/src/main/webapp/WEB-INF/classes/*
 /target/
+
+
+# ignore eclipse files
+.project
+.classpath
+.settings/*
+.metadata
+.mymetadata
+.checkstyle
