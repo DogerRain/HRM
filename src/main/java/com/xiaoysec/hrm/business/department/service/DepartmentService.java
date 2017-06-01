@@ -13,6 +13,10 @@ import com.xiaoysec.hrm.business.department.mapper.DepartmentMapper;
 @Service
 public class DepartmentService {
 
+	public DepartmentService(){
+		System.out.println("DepartmentService");
+	}
+	
 	@Autowired
 	private DepartmentMapper departmentMapper;
 	
