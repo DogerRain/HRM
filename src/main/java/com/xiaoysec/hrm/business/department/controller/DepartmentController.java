@@ -13,7 +13,7 @@ import com.xiaoysec.hrm.business.department.entity.Department;
 import com.xiaoysec.hrm.business.department.service.DepartmentService;
 
 @Controller
-@RequestMapping(value = "/department")
+@RequestMapping(value = "${adminPath}/department")
 public class DepartmentController {
 
 	@Autowired
