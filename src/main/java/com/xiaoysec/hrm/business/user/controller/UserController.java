@@ -10,7 +10,7 @@ import com.xiaoysec.hrm.business.user.entity.User;
 import com.xiaoysec.hrm.business.user.service.UserService;
 
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping(value = "${adminPath}/user")
 public class UserController {
 
 	@Autowired
@@ -21,5 +21,10 @@ public class UserController {
 		User user = userService.getUser(_user);
 		model.addAttribute("user", user);
 		return "userList";
+	}
+	
+	@RequestMapping(value="save",method={RequestMethod.GET})
+	public void addUser(User user){
+		userService.addUser(user);
 	}
 }
