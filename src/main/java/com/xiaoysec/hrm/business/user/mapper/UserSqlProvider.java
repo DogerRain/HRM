@@ -8,8 +8,6 @@ import com.xiaoysec.hrm.common.utils.StringUtil;
 
 import static com.xiaoysec.hrm.common.global.Constants.USERTABLE;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.Map;
 
 public class UserSqlProvider {

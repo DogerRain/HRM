@@ -7,7 +7,7 @@ public class Job implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
-	private String remarks;
+	private String remark;
 
 	public Job() {
 
@@ -29,12 +29,12 @@ public class Job implements Serializable {
 		this.name = name;
 	}
 
-	public String getRemarks() {
-		return remarks;
+	public String getRemark() {
+		return remark;
 	}
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 }
