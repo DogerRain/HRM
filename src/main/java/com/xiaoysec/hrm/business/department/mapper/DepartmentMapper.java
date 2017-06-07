@@ -19,6 +19,9 @@ public interface DepartmentMapper {
 	@Delete(" delete from dept_info where id=#{id} ")
 	public void deleteDeptById(Integer id);
 	
+	@Select(" select * from dept_info where id=#{id}")
+	public Department selectDepartmentById(Integer id);
+	
 	//动态分页
 	@SelectProvider(type=DeptSqlProvider.class,method="selectWithParm")
 	public List<Department> findDept(Map<String,Object> parm);
