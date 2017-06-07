@@ -4,13 +4,10 @@ import java.io.Serializable;
 
 public class Department implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
-	private String remarks;
+	private String remark;
 
 	public Integer getId() {
 		return id;
@@ -28,12 +25,12 @@ public class Department implements Serializable {
 		this.name = name;
 	}
 
-	public String getRemarks() {
-		return remarks;
+	public String getRemark() {
+		return remark;
 	}
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 }

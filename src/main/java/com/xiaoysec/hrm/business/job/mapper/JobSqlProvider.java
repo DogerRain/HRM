@@ -72,6 +72,7 @@ public class JobSqlProvider{
 				if(!StringUtil.isEmpty(job.getRemark())){
 					SET(" remark = #{remark}");
 				}
+				WHERE(" id = #{id}");
 			}
 		}.toString();
 	}

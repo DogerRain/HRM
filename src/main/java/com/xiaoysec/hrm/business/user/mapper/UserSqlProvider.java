@@ -30,6 +30,7 @@ public class UserSqlProvider {
 				if(temp.getStatus() != null){
 					SET(" status = #{status} ");
 				}
+				WHERE(" id = #{id}");
 			}
 		}.toString();
 	}
