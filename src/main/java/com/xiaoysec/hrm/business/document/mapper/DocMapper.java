@@ -1,4 +1,4 @@
-package com.xiaoysec.hrm.business.notice.mapper;
+package com.xiaoysec.hrm.business.document.mapper;
 
 import java.util.List;
 import java.util.Map;
@@ -13,28 +13,12 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.mapping.FetchType;
 
-import com.xiaoysec.hrm.business.notice.entity.Notice;
+import com.xiaoysec.hrm.business.document.entity.Document;
 
-public interface NoticeMapper {
+public interface DocMapper {
 	
 	//根据id查询
-	@Select("select * from notice_info where id=#{id}")
-	@Results({
-		@Result(id=true,column="id",property="id"),
-		@Result(column="create_date",property="createDate"),
-		@Result(column="user_id",property="User",
-			one=@One(select="com.xiaoysec.hrm.business.user.mapper.UserMapper.selectUserById",
-			fetchType=FetchType.EAGER)
-		)
-	})
-	public Notice selectNoticeById(Integer id);
-	
-	//根据id删除
-	@Delete("delete from notice_info where id=#{id}")
-	public void deleteNoticeById(Integer id);
-
-	//动态查询
-	@SelectProvider(type=NoticeSqlProvider.class,method="selectWithParm")
+	@Select("select * from document_info where id=#{id}")
 	@Results({
 		@Result(id=true,column="id",property="id"),
 		@Result(column="create_date",property="createDate"),
@@ -42,17 +26,32 @@ public interface NoticeMapper {
 			one=@One(select="com.xiaoysec.hrm.business.user.mapper.UserMapper.selectUserById",fetchType=FetchType.EAGER)
 		)
 	})
-	public List<Notice> findNotice(Map<String,Object> parm);
+	public Document selectDocById(Integer id);
+	
+	//根据id删除
+	@Delete("delete from document_info where id=#{id}")
+	public void deleteDocById(Integer id);
+	
+	//动态查询
+	@SelectProvider(type=DocSqlProvider.class,method="selectWithParm")
+	@Results({
+		@Result(id=true,column="id",property="id"),
+		@Result(column="create_date",property="createDate"),
+		@Result(column="user_id",property="user",
+			one=@One(select="com.xiaoysec.hrm.business.user.mapper.UserMapper.selectUserById",fetchType=FetchType.EAGER)
+		)
+	})
+	public List<Document> findDoc(Map<String,Object> parm);
 	
 	//动态查询数量
-	@SelectProvider(type=NoticeSqlProvider.class,method="getNoticeCount")
-	public Integer getNoticeCount(Map<String,Object> parm);
+	@SelectProvider(type=DocSqlProvider.class,method="getDocCount")
+	public Integer getDocCount(Map<String,Object> parm); 
 	
 	//动态插入
-	@InsertProvider(type=NoticeSqlProvider.class,method="insertNotice")
-	public void addNotice(Notice notice);
+	@InsertProvider(type=DocSqlProvider.class,method="insertDoc")
+	public void addDoc(Document document);
 	
 	//动态更新
-	@UpdateProvider(type=NoticeSqlProvider.class,method="updateNotice")
-	public void updateNotice(Notice notice);
+	@UpdateProvider(type=DocSqlProvider.class,method="updateDoc")
+	public void updateDoc(Document document);
 }
