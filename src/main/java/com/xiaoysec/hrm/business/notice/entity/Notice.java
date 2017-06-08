@@ -11,7 +11,7 @@ public class Notice implements Serializable {
 	private Integer id;
 	private String title;
 	private String content;
-	private Date createTime;
+	private Date createDate;
 	private User user;
 
 	public Notice() {
@@ -42,12 +42,12 @@ public class Notice implements Serializable {
 		this.content = content;
 	}
 
-	public Date getCreateTime() {
-		return createTime;
+	public Date getCreateDate() {
+		return createDate;
 	}
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
 	public User getUser() {

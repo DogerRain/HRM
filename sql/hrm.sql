@@ -29,12 +29,12 @@ CREATE TABLE user_info(
 	loginname VARCHAR(20) NOT NULL,
 	`password` VARCHAR(16) NOT NULL,
 	`status` INT(11) NOT NULL DEFAULT 1,
-	createdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	create_date datetime NOT NULL DEFAULT now(),
 	username VARCHAR(20) DEFAULT NULL,
 	PRIMARY KEY (id)
 	)ENGINE=INNODB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8; 
 	
-INSERT INTO user_info (id,loginname,`password`,`status`,createdate,username) VALUES (1,'admin','123456',
+INSERT INTO user_info (id,loginname,`password`,`status`,create_date,username) VALUES (1,'admin','123456',
 2,CURRENT_TIMESTAMP,'超级管理员');
 
 
@@ -75,7 +75,7 @@ CREATE TABLE notice_info (
     id INT(11) NOT NULL AUTO_INCREMENT,
     title VARCHAR(50) NOT NULL,
     content TEXT NOT NULL,
-    create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    create_time datetime NOT NULL DEFAULT now(),
     user_id INT(11) DEFAULT NULL,
     PRIMARY KEY (id),
     CONSTRAINT FK_NOTICE_USER FOREIGN KEY (user_id) REFERENCES user_info (id)
@@ -86,7 +86,7 @@ CREATE TABLE notice_info (
     title VARCHAR(50) NOT NULL,
     filename VARCHAR(300) NOT NULL,
     remark VARCHAR(300) DEFAULT NULL,
-    create_date TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    create_date datetime  NOT NULL DEFAULT now(),
     user_id INT(11) DEFAULT NULL,
     PRIMARY KEY (id),
     CONSTRAINT FK_DOCUMENT_USER FOREIGN KEY (user_id) REFERENCES user_info (id)
