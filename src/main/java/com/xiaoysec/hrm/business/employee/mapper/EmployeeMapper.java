@@ -1,6 +1,5 @@
 package com.xiaoysec.hrm.business.employee.mapper;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,14 +10,10 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.mapping.FetchType;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import com.xiaoysec.hrm.business.department.entity.Department;
 import com.xiaoysec.hrm.business.employee.entity.Employee;
-import com.xiaoysec.hrm.business.job.entity.Job;
 
 public interface EmployeeMapper {
 	
