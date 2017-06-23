@@ -16,8 +16,8 @@
             <form id="loginForm" class="form-horizontal" action="${ctx}/login" method="post">
                 <span class="heading">用户登录</span>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="username" 
-                    		name="username" placeholder="用户名" autocomplete="off">
+                    <input type="text" class="form-control" id="loginname" 
+                    		name="loginname" placeholder="用户名" autocomplete="off">
                     <i class="fa fa-user"></i>
                 </div>
                 <div class="form-group help">
@@ -35,23 +35,22 @@
 </div>
 <script>
      $(document).ready(function(){
-    	$("#loginForm").validate(); 
+    	$("#loginForm").validate({
+    		rules:{
+    			loginname:"required",
+    			password:"required"
+    		},
+    		messages : {
+    		 	loginname:"请输入用户名",
+    		 	password:"请输入密码"
+    		},
+    		submitHandler:function(form){
+    			//alert("提交表单");
+    			form.submit();
+    		}
+    	}); 
      });
-     $.validator.setDefaults({
-    	 submitHandler:function(){
-    		 alert("submit");
-    	}
-     });
-//表单校验
-function LoginFormSubmit(){
-	var username = $("#username").val();
-	var password = $("#password").val();
-	if(username==''||password==''){
-		alert("用户名或密码不能为空");
-	}
-	$("#loginForm").submit();
-	
-}
+
 
 </script>
 </body>

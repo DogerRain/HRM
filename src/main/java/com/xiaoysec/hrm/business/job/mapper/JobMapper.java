@@ -17,8 +17,8 @@ public interface JobMapper {
 	@Select("select * from "+ JOBTABLE + " where id=#{id}")
 	public Job selectJobById(Integer id);
 	
-	@Select("select * from "+JOBTABLE)
-	public List<Job> findJob();
+//	@Select("select * from "+JOBTABLE)
+//	public List<Job> findJob();
 	
 	//根据id删除响应的职位
 	@Delete("delete from "+ JOBTABLE + " where id=#{id}" )
