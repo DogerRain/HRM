@@ -1,0 +1,4 @@
+h1,h2,h3,h4,h5,h6,a,p,span,div,ul, li,ol,i,b,table,tr,th,td{padding: 0px; margin: 0px; font:14px / 1.5 "Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif; }
+.page-header .page-logo a{ font-size: 30px; line-height: 75px; font-weight: 600; color: #444d58; }
+.page-header .page-logo a:hover{text-decoration: none;}
+#sample_3 tr th:first-child,#sample_3 tr td:first-child{text-align: center;}
