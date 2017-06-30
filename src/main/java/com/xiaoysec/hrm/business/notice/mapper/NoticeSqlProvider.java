@@ -1,13 +1,14 @@
 package com.xiaoysec.hrm.business.notice.mapper;
 
+import static com.xiaoysec.hrm.common.global.Constants.NOTICETABLE;
+
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.jdbc.SQL;
-import static com.xiaoysec.hrm.common.global.Constants.NOTICETABLE;
 
 import com.xiaoysec.hrm.business.notice.entity.Notice;
 import com.xiaoysec.hrm.common.base.Page;
-import com.xiaoysec.hrm.common.utils.StringUtil;
 
 public class NoticeSqlProvider {
 	
@@ -19,10 +20,10 @@ public class NoticeSqlProvider {
 				FROM(NOTICETABLE);
 				if(parm.containsKey("notice")){
 					Notice notice = (Notice)parm.get("notice");
-					if(!StringUtil.isEmpty(notice.getContent())){
+					if(!StringUtils.isBlank(notice.getContent())){
 						WHERE(" content like "+" %"+"#{notice.content}"+"% ");
 					}
-					if(!StringUtil.isEmpty(notice.getTitle())){
+					if(!StringUtils.isBlank(notice.getTitle())){
 						WHERE(" title like "+" %"+"#{notice.title}"+"% ");
 					}
 				}
@@ -43,10 +44,10 @@ public class NoticeSqlProvider {
 				FROM(NOTICETABLE);
 				if(parm.containsKey("notice")){
 					Notice notice = (Notice)parm.get("notice");
-					if(!StringUtil.isEmpty(notice.getContent())){
+					if(!StringUtils.isBlank(notice.getContent())){
 						WHERE(" content like "+" %"+"#{notice.content}"+"% ");
 					}
-					if(!StringUtil.isEmpty(notice.getTitle())){
+					if(!StringUtils.isBlank(notice.getTitle())){
 						WHERE(" title like "+" %"+"#{notice.title}"+"% ");
 					}
 				}
@@ -59,10 +60,10 @@ public class NoticeSqlProvider {
 		return new SQL(){
 			{
 				INSERT_INTO(NOTICETABLE);
-				if(!StringUtil.isEmpty(notice.getContent())){
+				if(!StringUtils.isBlank(notice.getContent())){
 					VALUES("content", "#{content}");
 				}
-				if(!StringUtil.isEmpty(notice.getTitle())){
+				if(!StringUtils.isBlank(notice.getTitle())){
 					VALUES("title", "#{title}");
 				}
 				if(notice.getUser().getId() != null){
@@ -80,10 +81,10 @@ public class NoticeSqlProvider {
 		return new SQL(){
 			{
 				UPDATE(NOTICETABLE);
-				if(!StringUtil.isEmpty(notice.getTitle())){
+				if(!StringUtils.isBlank(notice.getTitle())){
 					SET("title = #{title}");
 				}
-				if(!StringUtil.isEmpty(notice.getContent())){
+				if(!StringUtils.isBlank(notice.getContent())){
 					SET("content = #{content}");
 				}
 				if(notice.getUser() != null){

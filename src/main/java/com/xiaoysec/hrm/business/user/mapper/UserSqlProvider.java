@@ -1,14 +1,14 @@
 package com.xiaoysec.hrm.business.user.mapper;
 
+import static com.xiaoysec.hrm.common.global.Constants.USERTABLE;
+
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.jdbc.SQL;
 
 import com.xiaoysec.hrm.business.user.entity.User;
 import com.xiaoysec.hrm.common.base.Page;
-import com.xiaoysec.hrm.common.utils.StringUtil;
-
-import static com.xiaoysec.hrm.common.global.Constants.USERTABLE;
-
-import java.util.Map;
 
 public class UserSqlProvider {
 	
@@ -44,7 +44,7 @@ public class UserSqlProvider {
 				FROM(USERTABLE);
 				if(temp.get("user") != null){
 					User user = (User)temp.get("user");
-					if(!StringUtil.isEmpty(user.getUsername())){
+					if(!StringUtils.isBlank(user.getUsername())){
 						WHERE(" username like %"+"#{user.username}"+"% ");
 					}
 					if(user.getStatus() != null){
@@ -68,7 +68,7 @@ public class UserSqlProvider {
 				FROM(USERTABLE);
 				if(parm.get("user") !=null ){
 					User user = (User)parm.get("user");
-					if(!StringUtil.isEmpty(user.getUsername()))
+					if(!StringUtils.isBlank(user.getUsername()))
 						WHERE(" username like " + " %"+"#{user.username}"+"% ");
 					if(user.getStatus() != null){
 						WHERE(" status like " + " %"+"#{user.status}"+"% " );
@@ -83,13 +83,13 @@ public class UserSqlProvider {
 		return new SQL(){
 			{
 				INSERT_INTO(USERTABLE);
-				if(!StringUtil.isEmpty(user.getLoginname())){
+				if(!StringUtils.isBlank(user.getLoginname())){
 					VALUES("loginname", "#{loginname}");
 				}
-				if(!StringUtil.isEmpty(user.getUsername())){
+				if(!StringUtils.isBlank(user.getUsername())){
 					VALUES("username", "#{username}");
 				}
-				if(!StringUtil.isEmpty(user.getPassword())){
+				if(!StringUtils.isBlank(user.getPassword())){
 					VALUES("password", "#{password}");
 				}
 				if(user.getStatus() != null){

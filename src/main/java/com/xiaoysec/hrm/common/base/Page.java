@@ -8,9 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
-import com.xiaoysec.hrm.common.utils.StringUtil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 分页类
@@ -90,7 +89,7 @@ public class Page<T> implements Serializable{
 		String page = request.getParameter("page");
 		String rows = request.getParameter("rows");
 		
-		if(!StringUtil.isEmpty(page)&&!StringUtil.isEmpty(rows)){
+		if(!StringUtils.isBlank(page)&&!StringUtils.isBlank(rows)){
 			Integer startInt =Integer.valueOf(page);
 			Integer rowsInt = Integer.valueOf(rows);
 			start = (startInt-1)*rowsInt+"";
@@ -103,7 +102,7 @@ public class Page<T> implements Serializable{
 			this.setSize(Integer.valueOf(length));
 		}
 		//设置排序参数
-		if(!StringUtil.isEmpty(orderBy)){
+		if(!StringUtils.isBlank(orderBy)){
 			this.setOrderBy(orderBy);
 		}
 	}

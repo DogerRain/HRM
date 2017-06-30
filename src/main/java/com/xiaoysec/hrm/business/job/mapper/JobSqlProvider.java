@@ -1,14 +1,14 @@
 package com.xiaoysec.hrm.business.job.mapper;
 
+import static com.xiaoysec.hrm.common.global.Constants.JOBTABLE;
+
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.jdbc.SQL;
 
 import com.xiaoysec.hrm.business.job.entity.Job;
 import com.xiaoysec.hrm.common.base.Page;
-import com.xiaoysec.hrm.common.utils.StringUtil;
-
-import static com.xiaoysec.hrm.common.global.Constants.JOBTABLE;
 
 public class JobSqlProvider{
 	
@@ -20,7 +20,7 @@ public class JobSqlProvider{
 				FROM(JOBTABLE);
 				if(parm.get("job") != null){
 					Job job = (Job) parm.get("job");
-					if(!StringUtil.isEmpty(job.getName())){
+					if(!StringUtils.isBlank(job.getName())){
 						WHERE(" name like "+" %"+"#{job.name}"+"% ");
 					}
 				}
@@ -40,7 +40,7 @@ public class JobSqlProvider{
 				FROM(JOBTABLE);
 				if(parm.get("job")!=null){
 					Job job = (Job) parm.get("job");
-					if(!StringUtil.isEmpty(job.getName())){
+					if(!StringUtils.isBlank(job.getName())){
 						WHERE(" name like"+" %"+"#{job.name}"+"% ");
 					}
 				}
@@ -52,10 +52,10 @@ public class JobSqlProvider{
 		return new SQL(){
 			{
 				INSERT_INTO(JOBTABLE);
-				if(!StringUtil.isEmpty(job.getName())){
+				if(!StringUtils.isBlank(job.getName())){
 					VALUES("name",job.getName());
 				}
-				if(!StringUtil.isEmpty(job.getRemark())){
+				if(!StringUtils.isBlank(job.getRemark())){
 					VALUES("remark", job.getRemark());
 				}
 			}
@@ -66,10 +66,10 @@ public class JobSqlProvider{
 		return new SQL(){
 			{
 				UPDATE(JOBTABLE);
-				if(!StringUtil.isEmpty(job.getName())){
+				if(!StringUtils.isBlank(job.getName())){
 					SET(" name = #{name}");
 				}
-				if(!StringUtil.isEmpty(job.getRemark())){
+				if(!StringUtils.isBlank(job.getRemark())){
 					SET(" remark = #{remark}");
 				}
 				WHERE(" id = #{id}");

@@ -4,11 +4,11 @@ import static com.xiaoysec.hrm.common.global.Constants.EMPLOYEETABLE;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.jdbc.SQL;
 
 import com.xiaoysec.hrm.business.employee.entity.Employee;
 import com.xiaoysec.hrm.common.base.Page;
-import com.xiaoysec.hrm.common.utils.StringUtil;
 
 public class EmployeeSqlProvider {
 
@@ -26,10 +26,10 @@ public class EmployeeSqlProvider {
 					if(employee.getJob() != null && employee.getJob().getId() != null){
 						WHERE(" job_id = #{employee.job.id}");
 					}
-					if(!StringUtil.isEmpty(employee.getName())){
+					if(!StringUtils.isBlank(employee.getName())){
 						WHERE(" name like "+" %"+"#{employee.name}"+"% ");
 					}
-					if(!StringUtil.isEmpty(employee.getCardId())){
+					if(!StringUtils.isBlank(employee.getCardId())){
 						WHERE(" card_id like "+" %"+"#{employee.cardId}"+"% ");
 					}
 					if(employee.getSex()!=null){
@@ -54,10 +54,10 @@ public class EmployeeSqlProvider {
 					if(employee.getJob() != null && employee.getJob().getId() != null){
 						WHERE(" job_id = #{employee.job.id}");
 					}
-					if(!StringUtil.isEmpty(employee.getName())){
+					if(!StringUtils.isBlank(employee.getName())){
 						WHERE(" name like "+" %"+"#{employee.name}"+"% ");
 					}
-					if(!StringUtil.isEmpty(employee.getCardId())){
+					if(!StringUtils.isBlank(employee.getCardId())){
 						WHERE(" card_id like "+" %"+"#{employee.cardId}"+"% ");
 					}
 					if(employee.getSex()!=null){
@@ -78,55 +78,55 @@ public class EmployeeSqlProvider {
 		return new SQL(){
 			{
 				INSERT_INTO(EMPLOYEETABLE);
-				if(!StringUtil.isEmpty(employee.getName())){
+				if(!StringUtils.isBlank(employee.getName())){
 					VALUES("name", "#{name}");
 				}
-				if(!StringUtil.isEmpty(employee.getCardId())){
+				if(!StringUtils.isBlank(employee.getCardId())){
 					VALUES("card_id", "#{cardId}");
 				}
-				if(!StringUtil.isEmpty(employee.getAddress())){
+				if(!StringUtils.isBlank(employee.getAddress())){
 					VALUES("address", "#{address}");
 				}
-				if(!StringUtil.isEmpty(employee.getAddress())){
+				if(!StringUtils.isBlank(employee.getAddress())){
 					VALUES("address", "#{address}");
 				}
-				if(!StringUtil.isEmpty(employee.getPostCode())){
+				if(!StringUtils.isBlank(employee.getPostCode())){
 					VALUES("post_code", "#{postCode}");
 				}
-				if(!StringUtil.isEmpty(employee.getTel())){
+				if(!StringUtils.isBlank(employee.getTel())){
 					VALUES("tel", "#{tel}");
 				}
-				if(!StringUtil.isEmpty(employee.getPhone())){
+				if(!StringUtils.isBlank(employee.getPhone())){
 					VALUES("phone", "#{phone}");
 				}
-				if(!StringUtil.isEmpty(employee.getQqNum())){
+				if(!StringUtils.isBlank(employee.getQqNum())){
 					VALUES("qq_num", "#{QqNum}");
 				}
-				if(!StringUtil.isEmpty(employee.getEmail())){
+				if(!StringUtils.isBlank(employee.getEmail())){
 					VALUES("email", "#{email}");
 				}
 				if(employee.getSex() != null){
 					VALUES("sex", "#{sex}");
 				}
-				if(!StringUtil.isEmpty(employee.getParty())){
+				if(!StringUtils.isBlank(employee.getParty())){
 					VALUES("party", "#{party}");
 				}
 				if(employee.getBirthday() != null){
 					VALUES("birthday", "#{birthday}");
 				}
-				if(!StringUtil.isEmpty(employee.getRace())){
+				if(!StringUtils.isBlank(employee.getRace())){
 					VALUES("race", "#{race}");
 				}
-				if(!StringUtil.isEmpty(employee.getEdcation())){
+				if(!StringUtils.isBlank(employee.getEdcation())){
 					VALUES("education", "#{education}");
 				}
-				if(!StringUtil.isEmpty(employee.getSpeciality())){
+				if(!StringUtils.isBlank(employee.getSpeciality())){
 					VALUES("speciality", "#{speciality}");
 				}
-				if(!StringUtil.isEmpty(employee.getHobby())){
+				if(!StringUtils.isBlank(employee.getHobby())){
 					VALUES("hobby", "#{hobby}");
 				}
-				if(!StringUtil.isEmpty(employee.getRemark())){
+				if(!StringUtils.isBlank(employee.getRemark())){
 					VALUES("remark", "#{remark}");
 				}
 				if(employee.getCreateDate() != null){
@@ -147,55 +147,55 @@ public class EmployeeSqlProvider {
 		return new SQL(){
 			{
 				UPDATE(EMPLOYEETABLE);
-				if(!StringUtil.isEmpty(employee.getName())){
+				if(!StringUtils.isBlank(employee.getName())){
 					SET("name = #{name}");
 				}
-				if(!StringUtil.isEmpty(employee.getCardId())){
+				if(!StringUtils.isBlank(employee.getCardId())){
 					SET("card_id = #{cardId}");
 				}
-				if(!StringUtil.isEmpty(employee.getAddress())){
+				if(!StringUtils.isBlank(employee.getAddress())){
 					SET("address = #{address}");
 				}
-				if(!StringUtil.isEmpty(employee.getAddress())){
+				if(!StringUtils.isBlank(employee.getAddress())){
 					SET("address = #{address}");
 				}
-				if(!StringUtil.isEmpty(employee.getPostCode())){
+				if(!StringUtils.isBlank(employee.getPostCode())){
 					SET("post_code = #{postCode}");
 				}
-				if(!StringUtil.isEmpty(employee.getTel())){
+				if(!StringUtils.isBlank(employee.getTel())){
 					SET("tel = #{tel}");
 				}
-				if(!StringUtil.isEmpty(employee.getPhone())){
+				if(!StringUtils.isBlank(employee.getPhone())){
 					SET("phone = #{phone}");
 				}
-				if(!StringUtil.isEmpty(employee.getQqNum())){
+				if(!StringUtils.isBlank(employee.getQqNum())){
 					SET("qq_num = #{QqNum}");
 				}
-				if(!StringUtil.isEmpty(employee.getEmail())){
+				if(!StringUtils.isBlank(employee.getEmail())){
 					SET("email = #{email}");
 				}
 				if(employee.getSex() != null){
 					SET("sex = #{sex}");
 				}
-				if(!StringUtil.isEmpty(employee.getParty())){
+				if(!StringUtils.isBlank(employee.getParty())){
 					SET("party = #{party}");
 				}
 				if(employee.getBirthday() != null){
 					SET("birthday = #{birthday}");
 				}
-				if(!StringUtil.isEmpty(employee.getRace())){
+				if(!StringUtils.isBlank(employee.getRace())){
 					SET("race = #{race}");
 				}
-				if(!StringUtil.isEmpty(employee.getEdcation())){
+				if(!StringUtils.isBlank(employee.getEdcation())){
 					SET("education = #{education}");
 				}
-				if(!StringUtil.isEmpty(employee.getSpeciality())){
+				if(!StringUtils.isBlank(employee.getSpeciality())){
 					SET("speciality = #{speciality}");
 				}
-				if(!StringUtil.isEmpty(employee.getHobby())){
+				if(!StringUtils.isBlank(employee.getHobby())){
 					SET("hobby = #{hobby}");
 				}
-				if(!StringUtil.isEmpty(employee.getRemark())){
+				if(!StringUtils.isBlank(employee.getRemark())){
 					SET("remark = #{remark}");
 				}
 				if(employee.getCreateDate() != null){

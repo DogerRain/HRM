@@ -3,6 +3,7 @@ package com.xiaoysec.hrm.sys.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.xiaoysec.hrm.business.user.entity.User;
 import com.xiaoysec.hrm.business.user.service.UserService;
-import com.xiaoysec.hrm.common.utils.StringUtil;
 
 /**
  * 登录控制器 
@@ -39,7 +39,7 @@ public class LoginController {
 	@RequestMapping(value="login",method=RequestMethod.POST)
 	public String login(User user,HttpServletRequest request){
 		//判断是不是合法的用户
-		if(!StringUtil.isEmpty(user.getLoginname())&&!StringUtil.isEmpty(user.getPassword())){
+		if(!StringUtils.isBlank(user.getLoginname())&&!StringUtils.isBlank(user.getPassword())){
 			User result = userService.getUser(user);
 			if(result != null){
 				request.getSession().setAttribute("sessionUser", result);

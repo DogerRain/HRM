@@ -20,7 +20,6 @@
 				<li>
 					<a href="#"></a>
 					<a href="#">部门管理</a>
-					<i class="fa fa-circle"></i>
 				</li>
 			</ul>
 		</div>
@@ -64,151 +63,82 @@
 		</div>
 	  </div>
 </div>
-	<script type="text/javascript">
-	var eventObj ={
-			editEvent: function(id){
-				location="${ctx}/business/whiteurlgroup/form?id=" + id;
-			},
-			deleteEvent: function(id){
-				deleteWhiteUrl(id);
-			},
-			emptyEvent: function(id){
-				emptyWhiteUrl(id);
-			},
-			findDetailEvent: function(id, province){
-				location = "${ctx}/business/whiteurl/list?groupId=" + id + "&province=" + province;
-			},
-			addDetailEvent: function(id, province){
-				location="${ctx}/business/whiteurl/form?groupId=" + id + "&province=" + province;
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		pageEventObj.initPageEvent();
+		initDataGrid();
+	});
+		
+	var pageEventObj = {
+		initPageEvent:function(){
+			$(".search").on("click", function(e) {
+				var param = {
+						name : $("#name").val(),
+				};
+				$("#tableGrid").datagrid('options').queryParams = param; 
+				$("#tableGrid").datagrid('reload');  
+				});
 			}
-		};
+	};
 		
-		var pageEventObj ={
-				initPageEvent:function(){
-					$(".search").on("click", function(e) {
-						var province = $("#province").val();
-						var param = {
-							name : $("#name").val(),
-							province:province
-						};
-						$("#tableGrid").datagrid('options').queryParams = param; 
-						$("#tableGrid").datagrid('reload');  
-				    });
-				}
+	var initDataGrid = function(){
+		var param = {
+			name : $("#name").val(),
 		};
-		
-		var initDataGrid = function(){
-			var province = $("#province").val();
-			var param = {
-				name : $("#name").val(),
-				province:province
-			};
-			$("#tableGrid").datagrid({
-				url: "${ctx}/business/whiteurlgroup/query",
-	 			queryParams: param,
-				idField : 'id',
-				method: 'post',
-				title: '',
-				iconCls: '',
-				height: 480,
-				pagination:true,
-				pageSize:10,
-				striped:true,
-				singleSelect:true,
-				fitColumns :true, 
-				columns:[[
-					{field:'id',title:'序号',width:50,align:'center'},
-					{field:'name',title:'名称',width:240,align:'center'},
-					{field:'matchFlag',title:'匹配类型',width:100,align:'center',
-						formatter:function(value,row,index){
-							if(row.matchFlag == 0){
-          		 				return "精准匹配";
-          		 			}else if(row.matchFlag == 1){
-          		 				return "模糊匹配";
-          		 			}else if(row.matchFlag == 2){
-          		 				return "域名匹配";
-          		 			}
-	                    } 	
-					},
-					{field:'provinceName',title:'省份',width:100,align:'center'},
-					{field:'remarks',title:'描述',width:150,align:'center'},
-					{field:'createDate',title:'创建时间',width:150,align:'center',
-						formatter:function(value,row,index){
-							if (row.createDate == undefined || row.createDate == null) {
-								return null;
-							} else {
-								return new Date(row.createDate).format("yyyy-MM-dd HH:mm:ss");	
-							}
-						} 	
-					},
-					{field:'operation',title:'操作',width:300,align:'center',
-						formatter:function(value,row,index){
-							if (row.id == undefined || row.id == null) {
-								return null;
-							}
-							var editBtn = "";
-							var deleteBtn = "";
-							var emptyBtn = "";
-							var findDetailBtn = "";
-							var addDetailBtn = "";
-								editBtn = "<a href='javascript:void(0);' onclick='eventObj.editEvent(" + row.id+ ");'>修改</a>";
-								deleteBtn = "<a href='javascript:void(0);' onclick='eventObj.deleteEvent(" + row.id+ ");'>删除</a>";
-								emptyBtn = "<a href='javascript:void(0);' onclick='eventObj.emptyEvent(" + row.id + ");'>清空</a>";
-								findDetailBtn = "<a href='javascript:void(0);' onclick='eventObj.findDetailEvent(" + row.id + "," + row.province + ");'>查看明细</a>";
-								addDetailBtn = "<a href='javascript:void(0);' onclick='eventObj.addDetailEvent(" + row.id + "," + row.province + ");'>添加明细</a>";
-							return editBtn + '&nbsp;' + deleteBtn + '&nbsp;' + emptyBtn + '&nbsp;' + findDetailBtn + '&nbsp;' + addDetailBtn;
-	                    }
-					}
-				]]
-			});
-		};
-
-		jQuery(document).ready(function() {
-			pageEventObj.initPageEvent();
-			initDataGrid();
-			});
-		function deleteWhiteUrl(id){
-			$.ajax({
-				url:"${ctx}/business/whiteurlgroup/isAllowedDelete?id="+id,
-				type:"post",
-				success:function(data){
-					if(null!=data){
-						if(false==data.success){//不可删除
-							bootbox.alert(data.message); 
-						}else{
-							bootbox.confirm("确认要删除白名单URL组吗？", function(result) {
-								if(result){
-									location='${ctx}/business/whiteurlgroup/delete?id='+id;
-								}
-							});
+		$("#tableGrid").datagrid({
+			url: "${ctx}/department/query",
+ 			queryParams: param,
+			idField : 'id',
+			method: 'post',
+			title: '',
+			iconCls: '',
+			height: 480,
+			pagination:true,
+			pageSize:10,
+			striped:true,
+			singleSelect:true,
+			fitColumns :true, 
+			columns:[[
+				{field:'id',title:'ID',width:50,align:'center'},
+				{field:'name',title:'名称',width:240,align:'center'},
+				{field:'remark',title:'描述',width:150,align:'center'},
+				{field:'operation',title:'操作',width:150,align:'center',
+					formatter:function(value,row,index){
+						var modBtn = '';
+						var delBtn = '';
+						if(row.id != null){
+							modBtn = "<a href=\"${ctx}/department/form?id="+row.id+"\">修改</a>";
+							delBtn = "<a href=\"javascript:void(0);\" onclick=\"deleteDepartment("+row.id+");\">删除</a>"
 						}
+						return modBtn + "&nbsp;&nbsp;" + delBtn;
 					}
 				}
-			});
-		}
-		function emptyWhiteUrl(id){
-			bootbox.confirm("确认要清空白名单URL组吗？", function(result) {
+			]]
+		});
+	};
+
+
+	function deleteDepartment(id){
+		bootbox.confirm({
+			message:"确定要删除该部门吗",
+			buttons:{
+				confirm:{
+					label:'确定',
+					className: 'btn-danger'
+				},
+				cancel:{
+					label:'取消',
+					className:'btn-success'
+				}
+			},
+			callback:function(result){
 				if(result){
-					location='${ctx}/business/whiteurlgroup/empty?id='+id;
+					location="${ctx}/department/delete?id="+id;
 				}
-			});
-		}
-		function initpRrovince(){
-			$.ajax({
-				url:"${ctx}/sys/user/getUserProvince",
-				type:"post",
-				success:function(data){
-					if(null!=data){
-						$("#province").empty();
-						$("#province").append("<option value=''>全部</option>");
-						$.each(data,function(index,item){
-							$("#province").append("<option value='"+item.provinceCode+"'>"+item.provinceName+"</option>");
-						});
-					}
-				}
-			});
-		}
-	</script>
+			}
+		});
+	}
+</script>
 </div>
 </body>
 </html>

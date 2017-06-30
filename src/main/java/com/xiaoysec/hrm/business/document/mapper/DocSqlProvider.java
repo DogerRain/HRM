@@ -4,11 +4,11 @@ import static com.xiaoysec.hrm.common.global.Constants.DOCUMENTTABLE;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.jdbc.SQL;
 
 import com.xiaoysec.hrm.business.document.entity.Document;
 import com.xiaoysec.hrm.common.base.Page;
-import com.xiaoysec.hrm.common.utils.StringUtil;
 
 public class DocSqlProvider {
 	
@@ -20,10 +20,10 @@ public class DocSqlProvider {
 				FROM(DOCUMENTTABLE);
 				if(parm.containsKey("doc")){
 					Document document = (Document) parm.get("doc");
-					if(!StringUtil.isEmpty(document.getTitle())){
+					if(!StringUtils.isBlank(document.getTitle())){
 						WHERE(" title like "+" %"+"#{document.title}"+"% ");
 					}
-					if(!StringUtil.isEmpty(document.getFileName())){
+					if(!StringUtils.isBlank(document.getFileName())){
 						WHERE(" filename like "+" %"+"#{document.fileName}"+"% ");
 					}
 				}
@@ -44,10 +44,10 @@ public class DocSqlProvider {
 				FROM(DOCUMENTTABLE);
 				if(parm.containsKey("doc")){
 					Document document = (Document) parm.get("doc");
-					if(!StringUtil.isEmpty(document.getTitle())){
+					if(!StringUtils.isBlank(document.getTitle())){
 						WHERE(" title like "+" %"+"#{document.title}"+"% ");
 					}
-					if(!StringUtil.isEmpty(document.getFileName())){
+					if(!StringUtils.isBlank(document.getFileName())){
 						WHERE(" filename like "+" %"+"#{document.fileName}"+"% ");
 					}
 				}
@@ -60,13 +60,13 @@ public class DocSqlProvider {
 		return new SQL(){
 			{
 				INSERT_INTO(DOCUMENTTABLE);
-				if(!StringUtil.isEmpty(document.getFileName())){
+				if(!StringUtils.isBlank(document.getFileName())){
 					VALUES("filename", "#{fileName}");
 				}
-				if(!StringUtil.isEmpty(document.getRemark())){
+				if(!StringUtils.isBlank(document.getRemark())){
 					VALUES("remark", "#{remark}");
 				}
-				if(!StringUtil.isEmpty(document.getTitle())){
+				if(!StringUtils.isBlank(document.getTitle())){
 					VALUES("title", "#{title}");
 				}
 				if(document.getUser().getId() != null){
@@ -84,13 +84,13 @@ public class DocSqlProvider {
 		return new SQL(){
 			{
 				UPDATE(DOCUMENTTABLE);
-				if(!StringUtil.isEmpty(document.getFileName())){
+				if(!StringUtils.isBlank(document.getFileName())){
 					SET("filename = #{fileName}");
 				}
-				if(!StringUtil.isEmpty(document.getRemark())){
+				if(!StringUtils.isBlank(document.getRemark())){
 					SET("remark = #{remark}");
 				}
-				if(!StringUtil.isEmpty(document.getTitle())){
+				if(!StringUtils.isBlank(document.getTitle())){
 					SET("title = #{title}");
 				}
 				if(document.getUser().getId() != null){

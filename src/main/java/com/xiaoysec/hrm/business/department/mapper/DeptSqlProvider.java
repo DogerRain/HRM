@@ -1,14 +1,13 @@
 package com.xiaoysec.hrm.business.department.mapper;
 
+import static com.xiaoysec.hrm.common.global.Constants.DEPARTMENTTABLE;
+
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.jdbc.SQL;
 
 import com.xiaoysec.hrm.business.department.entity.Department;
-import com.xiaoysec.hrm.common.base.Page;
-import com.xiaoysec.hrm.common.utils.StringUtil;
-
-import static com.xiaoysec.hrm.common.global.Constants.DEPARTMENTTABLE;
 
 public class DeptSqlProvider {
 	
@@ -18,17 +17,20 @@ public class DeptSqlProvider {
 			{
 				SELECT("*");
 				FROM(DEPARTMENTTABLE);
-				if(parm.get("dept")!=null){
-					Department department = (Department) parm.get("dept");
-					if(!StringUtil.isEmpty(department.getName())){
-						WHERE(" name like "+ " %"+"#{department.name}"+" %");
+				if(parm.get("name")!=null){
+					//Department department = (Department) parm.get("dept");
+					String name = (String) parm.get("name");
+					if(!StringUtils.isBlank(name)){
+						WHERE(" name like "+"CONCAT('%',#{name},'%')" );
 					}
 				}
 			}
 		}.toString();
-		if(parm.get("page") != null){
-			Page page = (Page) parm.get("page");
-			sql += " limit #{page.start},#{page.size}";
+		if(parm.get("size") != null && parm.get("start") != null){
+			//Page page = (Page) parm.get("page");
+			int size = (Integer) parm.get("size");
+			int start = (Integer) parm.get("start");
+			sql += " limit #{start},#{size}";
 		}
 		return sql;
 	} 
@@ -38,10 +40,11 @@ public class DeptSqlProvider {
 			{
 				SELECT("count(*)");
 				FROM(DEPARTMENTTABLE);
-				if(parm.get("dept") != null){
-					Department department = (Department) parm.get("dept");
-					if(!StringUtil.isEmpty(department.getName())){
-						WHERE(" name like "+" %"+"#{department.name}"+"% ");
+				if(parm.get("name") != null){
+					//Department department = (Department) parm.get("dept");
+					String name = (String) parm.get("name");
+					if(!StringUtils.isBlank(name)){
+						WHERE(" name like "+"CONCAT('%',#{name},'%')" );
 					}
 				}
 			}
@@ -53,10 +56,10 @@ public class DeptSqlProvider {
 		return new SQL(){
 			{
 				INSERT_INTO(DEPARTMENTTABLE);
-				if(!StringUtil.isEmpty(department.getName())){
+				if(!StringUtils.isBlank(department.getName())){
 					VALUES("name", department.getName());
 				}
-				if(!StringUtil.isEmpty(department.getRemark())){
+				if(!StringUtils.isBlank(department.getRemark())){
 					VALUES("remark", department.getRemark());
 				}
 			}
@@ -68,10 +71,10 @@ public class DeptSqlProvider {
 		return new SQL(){
 			{
 				UPDATE(DEPARTMENTTABLE);
-				if(StringUtil.isEmpty(department.getName())){
+				if(StringUtils.isBlank(department.getName())){
 					SET(" name = #{name}");
 				}
-				if(StringUtil.isEmpty(department.getRemark())){
+				if(StringUtils.isBlank(department.getRemark())){
 					SET(" remark = #{remark}");
 				}
 				WHERE(" id = #{id}");			}

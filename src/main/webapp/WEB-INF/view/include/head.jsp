@@ -25,6 +25,7 @@
 <script src="${ctxIndex}/hrm/js/jquery/jquery.validate.min.js" type="text/javascript"></script>
 <script src="${ctxIndex}/hrm/js/jquery/messages_zh.js"	type="text/javascript"></script>
 <script src="${ctxIndex}/hrm/js/bootstrap/js/bootstrap.min.js"	type="text/javascript"></script>
+<script src="${ctxIndex}/hrm/js/bootbox/bootbox.min.js"></script>
 <script src="${ctxIndex}/hrm/js/echarts/echarts.min.js"></script>
 <script src="${ctxIndex}/hrm/js/easyui/jquery.easyui.min.js" type="text/javascript" ></script>
 <script src="${ctxIndex}/hrm/js/easyui/locale/easyui-lang-zh_CN.js" type="text/javascript" ></script>
