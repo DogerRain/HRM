@@ -29,6 +29,7 @@
 <script src="${ctxIndex}/hrm/js/echarts/echarts.min.js"></script>
 <script src="${ctxIndex}/hrm/js/easyui/jquery.easyui.min.js" type="text/javascript" ></script>
 <script src="${ctxIndex}/hrm/js/easyui/locale/easyui-lang-zh_CN.js" type="text/javascript" ></script>
+<script src="${ctxIndex}/hrm/js/common/metronic.js" type="text/javascript"></script>
 <title>后台管理系统</title>
 </head>
 <body>

@@ -1,4 +1,4 @@
-CREATE DATABASE hrm_db DEFAULT CHARACTER SET utf8;
+'CREATE DATABASE hrm_db DEFAULT CHARACTER SET utf8;
 
 USE hrm_db;
 
@@ -6,6 +6,10 @@ CREATE TABLE dept_info (
 	id INT(11) NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(50) NOT NULL,
 	remark VARCHAR(300) DEFAULT  NULL,
+	create_by int(11) DEFAULT  NULL,
+	create_date timestamp DEFAULT  NULL,
+	update_by int(11) DEFAULT  NULL,
+	update_date timestamp DEFAULT  NULL,
 	PRIMARY KEY (id)
 	) ENGINE=INNODB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 	

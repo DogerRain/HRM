@@ -1,12 +1,14 @@
 package com.xiaoysec.hrm.business.department.controller;
 
-import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,7 +24,7 @@ public class DepartmentController {
 	@Autowired
 	private DepartmentService departmentService;
 
-	@RequestMapping(value = "/list")
+	@RequestMapping(value = {"list",""})
 	public String list(Model model) {
 		return "/business/departmentList";
 	}
@@ -37,9 +39,27 @@ public class DepartmentController {
 		return new DataGridResultEntity(page.getCount(), page.getList());
 	}
 
-	@RequestMapping(value = "/form")
-	public String form() {
+	@RequestMapping(value = "form")
+	public String form(Model model,Department department) {
+		if(department.getId() != null){
+			department = departmentService.getDepartmentById(department.getId());
+		}
+		model.addAttribute("department", department);
 		return "/business/departmentForm";
+	}
+
+	//TODO 创建者和修改者当前只能通过Session获取,整合shrio后再改动
+	@RequestMapping(value = "save")
+	@ResponseBody
+	public Map save(Department department,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		return departmentService.save(department,session);
+	}
+
+	@RequestMapping(value = "delete")
+	public String delete(Integer id) {
+		departmentService.delete(id);
+		return "/business/departmentList";
 	}
 
 }

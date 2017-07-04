@@ -18,7 +18,6 @@ public class DeptSqlProvider {
 				SELECT("*");
 				FROM(DEPARTMENTTABLE);
 				if(parm.get("name")!=null){
-					//Department department = (Department) parm.get("dept");
 					String name = (String) parm.get("name");
 					if(!StringUtils.isBlank(name)){
 						WHERE(" name like "+"CONCAT('%',#{name},'%')" );
@@ -27,7 +26,6 @@ public class DeptSqlProvider {
 			}
 		}.toString();
 		if(parm.get("size") != null && parm.get("start") != null){
-			//Page page = (Page) parm.get("page");
 			int size = (Integer) parm.get("size");
 			int start = (Integer) parm.get("start");
 			sql += " limit #{start},#{size}";
@@ -40,11 +38,16 @@ public class DeptSqlProvider {
 			{
 				SELECT("count(*)");
 				FROM(DEPARTMENTTABLE);
+				String mode = null;
+				if(parm.get("mode")!=null)
+					mode = (String) parm.get("mode");
 				if(parm.get("name") != null){
-					//Department department = (Department) parm.get("dept");
 					String name = (String) parm.get("name");
 					if(!StringUtils.isBlank(name)){
-						WHERE(" name like "+"CONCAT('%',#{name},'%')" );
+						if("like".equals(mode))
+							WHERE(" name like "+"CONCAT('%',#{name},'%')" );
+						if("equals".equals(mode))
+							WHERE(" name=#{name} ");
 					}
 				}
 			}
@@ -57,10 +60,16 @@ public class DeptSqlProvider {
 			{
 				INSERT_INTO(DEPARTMENTTABLE);
 				if(!StringUtils.isBlank(department.getName())){
-					VALUES("name", department.getName());
+					VALUES("name", "#{name}");
 				}
 				if(!StringUtils.isBlank(department.getRemark())){
-					VALUES("remark", department.getRemark());
+					VALUES("remark","#{remark}");
+				}
+				if(department.getCreateBy() != null){
+					VALUES("create_by","#{createBy.id}");
+				}
+				if(department.getCreateDate() != null){
+					VALUES("create_date","#{createDate}");
 				}
 			}
 		}.toString();
@@ -71,14 +80,21 @@ public class DeptSqlProvider {
 		return new SQL(){
 			{
 				UPDATE(DEPARTMENTTABLE);
-				if(StringUtils.isBlank(department.getName())){
+				if(!StringUtils.isBlank(department.getName())){
 					SET(" name = #{name}");
 				}
-				if(StringUtils.isBlank(department.getRemark())){
+				if(!StringUtils.isBlank(department.getRemark())){
 					SET(" remark = #{remark}");
 				}
-				WHERE(" id = #{id}");			}
+				if(department.getUpdateBy() != null){
+					SET(" update_by = #{updateBy.id}");
+				}
+				if(department.getUpdateDate() != null){
+					SET(" update_date = #{updateDate}");
+				}
+				WHERE(" id = #{id}");			
+			}
 		}.toString();
 	}
-
+	
 }

@@ -1,8 +1,8 @@
 package com.xiaoysec.hrm.business.department.entity;
 
-import java.io.Serializable;
+import com.xiaoysec.hrm.common.base.BaseEntity;
 
-public class Department implements Serializable {
+public class Department extends BaseEntity<Department>{
 
 	private static final long serialVersionUID = 1L;
 	private Integer id;
