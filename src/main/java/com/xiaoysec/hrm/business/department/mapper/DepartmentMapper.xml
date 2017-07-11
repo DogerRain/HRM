@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.xiaoysec.hrm.business.department.mapper.DepartmentMapper">
+  	<!--查询全部-->
+  	<select id="findAll" resultMap="departmentList">
+  		select * from dept_info
+  	</select>
+  	
+  	<resultMap type="department" id="departmentList">
+  		<id column="id" property="id"/>
+  		<result column="name" property="name"/>
+  		<result column="remark" property="remark"/>
+  		<result column="create_date" property="createDate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+  		<result column="update_date" property="updateDate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+  		<association property="createBy" column="create_by" javaType="User" select="com.xiaoysec.hrm.business.user.mapper.UserMapper.getUserById">
+  		</association>
+  	</resultMap>
+  	
+  	
+  	<!-- 根据id删除 -->
+  	<delete id="deleteDeptById" parameterType="Integer">
+  		delete from dept_info where id=#{id}
+  	</delete>
+  	
+  	<!-- 分页查找 -->
+  	<select id="findDept" parameterType="Map" resultMap="deptPage">
+  		select * from dept_info
+  		<where>
+  			<if test=" name != null">
+  			 	and name like %#{name}%
+  			</if>
+  		</where>
+  		<if test="start != null and size != null">
+  			limit #{start},#{size}
+  		</if>
+  	</select>
+  	
+  	<resultMap type="department" id="deptPage">
+  		<id column="id" property="id"/>
+  		<result column="name" property="name"/>
+  		<result column="remark" property="remark"/>
+  		<result column="create_date" property="createDate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+  		<association property="createBy" column="create_by" 
+  			select="com.xiaoysec.hrm.business.user.mapper.UserMapper.getUserById"
+  			javaType="user">
+  			<id column="id" property="id"/>
+  			<result column="username" property="username"/> 
+  		</association>
+  	</resultMap>
+  	
+  	
+  	<!-- 动态获取count -->
+  	<select id="getDeptCount" parameterType="Map" resultType="Integer">
+  		select count(*) from dept_info 
+  		<where>
+  			<if test=" name != null">
+  			 	and name like %#{name}%
+  			</if>
+  		</where>
+  		<if test="start != null and size != null">
+  			limit #{start},#{size}
+  		</if>
+  	</select>
+  </mapper>

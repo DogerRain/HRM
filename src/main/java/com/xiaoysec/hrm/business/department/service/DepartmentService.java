@@ -32,7 +32,7 @@ public class DepartmentService {
 		int size = page.getSize();
 		paramMap.put("start", start);
 		paramMap.put("size", size);
-		if (!StringUtils.isBlank(name)) {
+		if (StringUtils.isNotBlank(name)) {
 			paramMap.put("name", name);
 		}
 		List<Department> departmentList = departmentMapper.findDept(paramMap);
@@ -44,6 +44,11 @@ public class DepartmentService {
 	@Transactional(readOnly = false)
 	public void delete(Integer id) {
 		departmentMapper.deleteDeptById(id);
+	}
+	
+	public List<Department> findAll(){
+		List<Department> result = departmentMapper.findAll();
+		return result;
 	}
 
 	@Transactional(readOnly = false)

@@ -55,7 +55,8 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
-		<property name="typeAliasesPackage" value="com.xiaoysec.hrm.**.entity" />
+		<!-- 不支持通配符 但是支持扫描子包 -->
+		<property name="typeAliasesPackage" value="com.xiaoysec.hrm.business" />
 	</bean>
 
 	<!--<mybatis:scan base-package=""/>是同样的效果-->
@@ -63,7 +64,7 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!-- 注入sqlSessionFactory -->
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
-		<!-- 给出需要扫描mapper接口包 -->
+		<!-- 给出需要扫描mapper接口包 支持通配符 -->
 		<property name="basePackage" value="com.xiaoysec.hrm.**.mapper" />
 	</bean>
 
