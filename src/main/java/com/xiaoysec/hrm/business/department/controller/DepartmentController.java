@@ -40,6 +40,7 @@ public class DepartmentController {
 	public DataGridResultEntity query(HttpServletRequest request, Model model) {
 		String name = request.getParameter("name");
 		model.addAttribute("name", name);
+		model.addAttribute("mode", "like");
 		Page<Department> page = new Page<Department>(request);
 		page = departmentService.findList(page, model.asMap());
 		return new DataGridResultEntity(page.getCount(), page.getList());
@@ -57,9 +58,9 @@ public class DepartmentController {
 	//TODO 创建者和修改者当前只能通过Session获取,整合shrio后再改动
 	@RequestMapping(value = "save")
 	@ResponseBody
-	public Map save(Department department,HttpServletRequest request) {
+	public Map save(Department department,HttpServletRequest request,String hideName) {
 		HttpSession session = request.getSession();
-		return departmentService.save(department,session);
+		return departmentService.save(department,session,hideName);
 	}
 
 	@RequestMapping(value = "delete")

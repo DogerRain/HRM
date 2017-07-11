@@ -39,6 +39,7 @@
 				<div class="portlet-body form">
 					<form id="departmentForm" action="${ctx}/department/save" method="post" class="form-horizontal">
 						<input type="hidden" name="id" value="${department.id}"/>
+						<input type="hidden" name="hideName" value="${department.name}"/>
 						<div class="form-body">
 							<div class="form-group">
 								<label class="control-label col-md-1" for="name">
@@ -46,6 +47,22 @@
 								</label>
 								<div class="col-md-3">
 									<input type="text" class="form-control notnull" id="name" name="name" value="${department.name}" placeholder="名称"/>
+								</div>
+							</div>
+							<div class="form-group" name="createByField">
+								<label class="control-label col-md-1" for="createBy">
+									创建者
+								</label>
+								<div class="col-md-3">
+									<input type="text" class="form-control notnull" disabled="disabled" id="createBy" name="createBy" value="${department.createBy.username}"/>
+								</div>
+							</div>
+							<div class="form-group" name="createDateField">
+								<label class="control-label col-md-1" for="createDate">
+									创建时间
+								</label>
+								<div class="col-md-3">
+									<input type="text" class="form-control notnull dateformat" disabled="disabled" id="createDate" name="createDate" value="${department.createDate}"/>
 								</div>
 							</div>
 							<div class="form-group">
@@ -108,8 +125,26 @@ var initFormValidate = function(){
 		}
 	});
 }	
+
+
+var pageEvent = {
+	initPageEvent:function(){
+		//新建时隐藏 创建时间和创建者 文本框
+		if('${empty department.id}' == 'true'){
+			$('div[name="createByField"]').hide();
+			$('div[name="createDateField"]').hide();
+		}
+	},
+	dateFormat:function(){
+		if($('.dateformat').val() != ""){
+			$('.dateformat').val($.format.date($('.dateformat').val(),'yyyy-MM-dd HH:mm:ss'));
+		}
+	}
+};
 jQuery(document).ready(function(){
 	//Metronic.init();
+	pageEvent.initPageEvent();
+	pageEvent.dateFormat();
 	initFormValidate();
 });
 </script>

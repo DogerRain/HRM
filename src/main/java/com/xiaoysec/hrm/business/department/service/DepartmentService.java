@@ -28,12 +28,16 @@ public class DepartmentService {
 	public Page<Department> findList(Page<Department> page, Map<String, Object> map) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		String name = (String) map.get("name");
+		String mode = (String) map.get("mode");
 		int start = page.getStart();
 		int size = page.getSize();
 		paramMap.put("start", start);
 		paramMap.put("size", size);
 		if (StringUtils.isNotBlank(name)) {
 			paramMap.put("name", name);
+		}
+		if (StringUtils.isNotBlank(mode)) {
+			paramMap.put("mode", mode);
 		}
 		List<Department> departmentList = departmentMapper.findDept(paramMap);
 		page.setList(departmentList);
@@ -45,29 +49,29 @@ public class DepartmentService {
 	public void delete(Integer id) {
 		departmentMapper.deleteDeptById(id);
 	}
-	
-	public List<Department> findAll(){
+
+	public List<Department> findAll() {
 		List<Department> result = departmentMapper.findAll();
 		return result;
 	}
 
 	@Transactional(readOnly = false)
-	public Map save(Department department,HttpSession session) {
-		Map<String,Object> result = new HashMap<String, Object>();
+	public Map save(Department department, HttpSession session, String hideName) {
+		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			if (StringUtils.isBlank(department.getName())) {
 				result.put("success", false);
 				result.put("message", "部门名称不能为空");
 				return result;
 			}
-			// 查重
-			Map<String, Object> param = new HashMap<String, Object>();
-			param.put("name", department.getName());
-			boolean isExist  = isExist(department);
-			if (isExist) {
-				result.put("success", false);
-				result.put("message", "部门【" + department.getName() + "】已经存在");
-				return result;
+			// 查重,与hideName对比
+			if (!hideName.equals(department.getName())) {
+				boolean isExist = isExist(department);
+				if (isExist) {
+					result.put("success", false);
+					result.put("message", "部门【" + department.getName() + "】已经存在");
+					return result;
+				}
 			}
 			if (department.getId() == null) {
 				// 新增
@@ -76,17 +80,14 @@ public class DepartmentService {
 				department.setCreateBy(user);
 				department.setCreateDate(new Date());
 				departmentMapper.addDepartment(department);
-				
+
 			} else {
 				// 修改
 				// 修改人和修改时间
-				Department old = departmentMapper.getDepartmentById(department.getId());
 				User user = (User) session.getAttribute("sessionUser");
-				old.setUpdateBy(user);
-				old.setUpdateDate(new Date());
-				old.setName(department.getName());
-				old.setRemark(department.getRemark());
-				departmentMapper.updateDept(old);
+				department.setUpdateBy(user);
+				department.setUpdateDate(new Date());
+				departmentMapper.updateDept(department);
 			}
 			result.put("success", true);
 			result.put("message", "部门【" + department.getName() + "】保存成功");
@@ -97,18 +98,18 @@ public class DepartmentService {
 		return result;
 	}
 
-	//根据id查询
+	// 根据id查询
 	public Department getDepartmentById(Integer id) {
 		return departmentMapper.getDepartmentById(id);
 	}
-	
-	//查重
-	public boolean isExist(Department department){
-		HashMap<String, Object> parm = new HashMap<String,Object>();
+
+	// 查重
+	public boolean isExist(Department department) {
+		HashMap<String, Object> parm = new HashMap<String, Object>();
 		parm.put("name", department.getName());
 		parm.put("mode", "equals");
 		Integer deptCount = departmentMapper.getDeptCount(parm);
-		return deptCount>0?true:false;
+		return deptCount > 0 ? true : false;
 	}
 
 }

@@ -103,11 +103,20 @@
 				{field:'name',title:'名称',width:100,align:'center'},
 				{field:'remark',title:'描述',width:100,align:'center'},
 				{field:'createBy',title:'创建人',width:80,align:'center',
-					formatter:function(value,row,index){return value.username;}	
-				
+					formatter:function(value,row,index){
+						if(value != null){
+							return value.username;
+						}
+					}	
 				},
 				{field:'createDate',title:'创建时间',width:120,align:'center'},
-				{field:'updateBy',title:'修改人',width:80,align:'center'},
+				{field:'updateBy',title:'修改人',width:80,align:'center',
+					formatter:function(value,row,index){
+						if(value != null){
+							return value.username;
+						}
+					}
+				},
 				{field:'updateDate',title:'修改时间',width:120,align:'center'},
 				{field:'operation',title:'操作',width:150,align:'center',
 					formatter:function(value,row,index){

@@ -2,66 +2,93 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="com.xiaoysec.hrm.business.department.mapper.DepartmentMapper">
-  	<!--查询全部-->
-  	<select id="findAll" resultMap="departmentList">
-  		select * from dept_info
-  	</select>
-  	
-  	<resultMap type="department" id="departmentList">
-  		<id column="id" property="id"/>
-  		<result column="name" property="name"/>
-  		<result column="remark" property="remark"/>
-  		<result column="create_date" property="createDate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
-  		<result column="update_date" property="updateDate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
-  		<association property="createBy" column="create_by" javaType="User" select="com.xiaoysec.hrm.business.user.mapper.UserMapper.getUserById">
-  		</association>
-  	</resultMap>
-  	
-  	
-  	<!-- 根据id删除 -->
-  	<delete id="deleteDeptById" parameterType="Integer">
-  		delete from dept_info where id=#{id}
-  	</delete>
-  	
-  	<!-- 分页查找 -->
-  	<select id="findDept" parameterType="Map" resultMap="deptPage">
-  		select * from dept_info
-  		<where>
-  			<if test=" name != null">
-  			 	and name like %#{name}%
-  			</if>
-  		</where>
-  		<if test="start != null and size != null">
-  			limit #{start},#{size}
-  		</if>
-  	</select>
-  	
-  	<resultMap type="department" id="deptPage">
-  		<id column="id" property="id"/>
-  		<result column="name" property="name"/>
-  		<result column="remark" property="remark"/>
-  		<result column="create_date" property="createDate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
-  		<association property="createBy" column="create_by" 
-  			select="com.xiaoysec.hrm.business.user.mapper.UserMapper.getUserById"
-  			javaType="user">
-  			<id column="id" property="id"/>
-  			<result column="username" property="username"/> 
-  		</association>
-  	</resultMap>
-  	
-  	
-  	<!-- 动态获取count -->
-  	<select id="getDeptCount" parameterType="Map" resultType="Integer">
-  		select count(*) from dept_info 
-  		<where>
-  			<if test=" name != null">
-  			 	and name like %#{name}%
-  			</if>
-  		</where>
-  		<if test="start != null and size != null">
-  			limit #{start},#{size}
-  		</if>
-  	</select>
-  </mapper>
+
+<mapper namespace="com.xiaoysec.hrm.business.department.mapper.DepartmentMapper">
+	<!--查询全部 -->
+	<select id="findAll" resultMap="departmentMap">
+		select * from dept_info
+	</select>
+
+	<!-- 根据id查询 -->
+	<select id="getDepartmentById" parameterType="Integer"
+		resultMap="departmentMap">
+		select * from dept_info where id=#{id}
+	</select>
+
+	<!-- 根据id删除 -->
+	<delete id="deleteDeptById" parameterType="Integer">
+		delete from dept_info where id=#{id}
+	</delete>
+
+	<!-- 分页查找 -->
+	<select id="findDept" parameterType="Map" resultMap="departmentMap">
+		select * from dept_info
+		<where>
+			<if test=" name != null">
+				and name like CONCAT('%',#{name},'%')
+			</if>
+		</where>
+		<if test="start != null and size != null">
+			limit #{start},#{size}
+		</if>
+	</select>
+
+	<resultMap type="department" id="departmentMap">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="remark" property="remark" />
+		<result column="create_date" property="createDate" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<result column="update_date" property="updateDate" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<association property="createBy" column="create_by"
+			select="com.xiaoysec.hrm.business.user.mapper.UserMapper.getUserById"
+			javaType="user">
+			<id column="id" property="id" />
+			<result column="username" property="username" />
+		</association>
+		<association property="updateBy" column="update_by"
+			select="com.xiaoysec.hrm.business.user.mapper.UserMapper.getUserById"
+			javaType="user">
+			<id column="id" property="id" />
+			<result column="username" property="username" />
+		</association>
+	</resultMap>
+
+
+	<!-- 动态获取count -->
+	<select id="getDeptCount" parameterType="Map" resultType="Integer">
+		select count(*) from dept_info
+		<where>
+			<if test="name != null">
+				<choose>
+					<when test='mode ==  "equals"'>
+						name = #{name}
+					</when>
+					<when test='mode ==  "like"'>
+						name like CONCAT('%',#{name},'%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+
+	<!-- 动态插入 -->
+	<insert id="addDepartment" parameterType="department">
+		insert into dept_info(name,remark,create_by,create_date) values
+		(#{name},#{remark},#{createBy.id},#{createDate})
+	</insert>
+
+	<!-- 动态更新 -->
+	<update id="updateDept" parameterType="department">
+		update dept_info
+		<set>
+			<if test="name != null">name = #{name},</if>
+			<if test="name != null">remark = #{remark},</if>
+			<if test="name != null">update_by = #{updateBy.id},</if>
+			<if test="name != null">update_date = #{updateDate}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+</mapper>
