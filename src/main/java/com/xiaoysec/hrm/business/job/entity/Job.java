@@ -1,10 +1,9 @@
 package com.xiaoysec.hrm.business.job.entity;
 
-import java.io.Serializable;
+import com.xiaoysec.hrm.common.base.BaseEntity;
 
-public class Job implements Serializable {
+public class Job extends BaseEntity<Job> {
 
-	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
 	private String remark;

@@ -91,7 +91,7 @@ public class DepartmentService {
 			result.put("message", "部门【" + department.getName() + "】保存成功");
 		} catch (Exception e) {
 			result.put("success", false);
-			result.put("message", e.getMessage());
+			result.put("message", "部门保存失败:"+e.getMessage());
 		}
 		return result;
 	}

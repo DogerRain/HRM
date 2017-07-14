@@ -96,7 +96,7 @@ public class UserService {
 			result.put("message", "用户 【"+user.getLoginname()+"】保存成功");
 		} catch (Exception e) {
 			result.put("success", false);
-			result.put("message", "用户保存失败");
+			result.put("message", "用户保存失败:"+e.getMessage());
 		}
 		return result;
 	}

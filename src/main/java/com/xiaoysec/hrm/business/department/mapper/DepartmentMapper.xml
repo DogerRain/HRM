@@ -17,7 +17,8 @@
 
 	<!-- 根据id删除 -->
 	<delete id="deleteDeptById" parameterType="Integer">
-		delete from dept_info where id=#{id}
+		delete from dept_info
+		where id=#{id}
 	</delete>
 
 	<!-- 分页查找 -->
@@ -75,7 +76,8 @@
 
 	<!-- 动态插入 -->
 	<insert id="addDepartment" parameterType="department">
-		insert into dept_info(name,remark,create_by,create_date) values
+		insert into
+		dept_info(name,remark,create_by,create_date) values
 		(#{name},#{remark},#{createBy.id},#{createDate})
 	</insert>
 
