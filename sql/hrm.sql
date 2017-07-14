@@ -22,6 +22,10 @@ CREATE TABLE job_info(
      id INT(11) NOT NULL AUTO_INCREMENT,
      `name` VARCHAR(50) NOT NULL,
      remark VARCHAR(300) DEFAULT NULL,
+	 create_date timestamp null default null,
+	 create_by int(11) default null,
+	 update_date timestamp null default null,
+	 update_by int(11) default null,
      PRIMARY KEY (id)
      ) ENGINE=INNODB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
