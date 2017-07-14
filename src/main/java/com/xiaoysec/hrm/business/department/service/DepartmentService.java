@@ -35,8 +35,6 @@ public class DepartmentService {
 		paramMap.put("size", size);
 		if (StringUtils.isNotBlank(name)) {
 			paramMap.put("name", name);
-		}
-		if (StringUtils.isNotBlank(mode)) {
 			paramMap.put("mode", mode);
 		}
 		List<Department> departmentList = departmentMapper.findDept(paramMap);

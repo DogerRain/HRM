@@ -2,14 +2,81 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="com.xiaoysec.hrm.business.user.mapper.UserMapper">
-  	<select id="getUserById" parameterType="Integer" resultType="User">
-  		select * from user_info where id=#{id};
-  	</select>
-  	
-  	<select id="getUserByLoginNameAndPassword"  parameterType="User" resultType="User">
-  		select * from user_info where loginname=#{loginname} and password=#{password}
-  	</select>
- 
-  </mapper>
+
+<mapper namespace="com.xiaoysec.hrm.business.user.mapper.UserMapper">
+	<!-- 根据id获取用户 -->
+	<select id="getUserById" parameterType="Integer" resultMap="userMap">
+		select * from user_info where id=#{id};
+	</select>
+
+	<!-- 根据登陆名和密码查询用户 -->
+	<select id="getUserByLoginNameAndPassword" parameterType="User"
+		resultType="User">
+		select * from user_info where loginname=#{loginname} and
+		password=#{password}
+	</select>
+
+	<!-- 分页查询用户 -->
+	<select id="findUser" parameterType="Map" resultMap="userMap">
+		select * from user_info
+		<where>
+			<if test="name != null">
+				and loginname = #{name}
+			</if>
+			<if test="start != null and size != null">
+				limit #{start},#{size}
+			</if>
+		</where>
+	</select>
+
+	<resultMap type="user" id="userMap">
+		<id column="id" property="id" />
+		<result column="loginname" property="loginname" />
+		<result column="username" property="username" />
+		<result column="password" property="password" />
+		<result column="create_date" property="createDate" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 查询数量 -->
+	<select id="getUserCount" parameterType="Map" resultType="Integer">
+		select count(*) from user_info
+		<where>
+			<if test="name != null">
+				<choose>
+					<when test='mode ==  "equals"'>
+						loginname = #{name}
+					</when>
+					<when test='mode ==  "like"'>
+						loginname like CONCAT('%',#{name},'%')
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+
+	<delete id="deleteUserById" parameterType="Integer">
+		delete from user_info
+		where id=#{id}
+	</delete>
+
+	<insert id="addUser" parameterType="user">
+		insert into user_info
+		(loginname,username,password,status,create_date )
+		values
+		(#{loginname},#{username},#{password},#{status},#{createDate})
+	</insert>
+
+
+	<update id="updateUser" parameterType="user">
+		update user_info
+		<set>
+			<if test="loginname != null">loginname = #{loginname},</if>
+			<if test="username != null">username = #{username},</if>
+			<if test="status != null">status = #{status}</if>
+			<if test="password != null">password = #{password}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+</mapper>

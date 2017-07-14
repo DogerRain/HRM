@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	
+	<!-- 1 业务对象 下载FTP文件-->
+	<bean id="testJob" class="com.xiaoysec.hrm.common.task.TestJob" />
+	
+	<!-- 1 调度任务 下载FTP文件 -->
+	<bean id="task"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="testJob" />
+		<property name="targetMethod" value="work" />
+	</bean>
+	
+	<!-- 1 触发器 下载FTP文件 每5s触发 -->
+	<bean id="taskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="task" />
+		<property name="cronExpression" value="0/5 * * * * ?" />
+	</bean>
+		
+	<!--管理触发器的总设置,管理我们的触发器列表,可以在bean的list中放置多个触发器。 -->
+	<!-- 调度器 ,用于启动定时器-->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="taskTrigger" />
+			</list>
+		</property>
+		<property name="taskExecutor" ref="executor" />
+	</bean>
+	
+	<!-- 线程执行器配置，用于任务注册 -->
+	<bean id="executor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="10" />
+		<property name="maxPoolSize" value="50" />
+		<property name="queueCapacity" value="500" />
+	</bean>
+</beans>

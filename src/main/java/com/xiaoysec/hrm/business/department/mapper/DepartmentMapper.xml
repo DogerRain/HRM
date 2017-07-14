@@ -84,9 +84,9 @@
 		update dept_info
 		<set>
 			<if test="name != null">name = #{name},</if>
-			<if test="name != null">remark = #{remark},</if>
-			<if test="name != null">update_by = #{updateBy.id},</if>
-			<if test="name != null">update_date = #{updateDate}</if>
+			<if test="remark != null">remark = #{remark},</if>
+			<if test="updateBy != null">update_by = #{updateBy.id},</if>
+			<if test="updateDate != null">update_date = #{updateDate}</if>
 		</set>
 		where id = #{id}
 	</update>

@@ -3,6 +3,8 @@ package com.xiaoysec.hrm.business.user.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 用户类
  * 
@@ -64,6 +66,7 @@ public class User implements Serializable {
 		this.status = status;
 	}
 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
 	public Date getCreateDate() {
 		return createDate;
 	}
