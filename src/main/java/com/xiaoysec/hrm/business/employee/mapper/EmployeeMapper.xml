@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xiaoysec.hrm.business.employee.mapper.EmployeeMapper">
+	<!-- 分页查询 -->
+	<select id="findEmployee" parameterType="Map" resultMap="employeeMap">
+		select
+		e.*,d.id AS did,d.name AS dname,j.id AS jid,j.name AS jname
+		from
+		employee_info e left join
+		dept_info d
+		on e.dept_id = d.id left join
+		job_info j on e.job_id = j.id
+		<where>
+			<if test=" name != null">
+				and e.name like CONCAT('%',#{name},'%')
+			</if>
+		</where>
+		<if test="start != null and size != null">
+			limit #{start},#{size}
+		</if>
+	</select>
+
+	<resultMap type="employee" id="employeeMap" autoMapping="true">
+		<id column="id" property="id" />
+		<result column="card_id" property="cardId" />
+		<result column="post_code" property="postCode" />
+		<result column="qq_num" property="qqNum" />
+		<result column="create_date" property="createDate" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<result column="update_date" property="updateDate" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<association property="createBy" column="create_by"
+			select="com.xiaoysec.hrm.business.user.mapper.UserMapper.getUserById">
+			<id column="id" property="id" />
+			<result column="username" property="username" />
+		</association>
+		<association property="updateBy" column="update_by"
+			select="com.xiaoysec.hrm.business.user.mapper.UserMapper.getUserById">
+			<id column="id" property="id" />
+			<result column="username" property="username" />
+		</association>
+		<association property="department" column="dept_id"
+			javaType="department">
+			<id column="did" property="id" />
+			<result column="dname" property="name" />
+		</association>
+		<association property="job" column="job_id" javaType="job">
+			<id column="jid" property="id" />
+			<result column="jname" property="name" />
+		</association>
+	</resultMap>
+
+	<!-- 获取数量 -->
+	<select id="getEmployeeCount" parameterType="Map" resultType="Integer">
+		select count(id) from employee_info
+		<where>
+			<if test="name != null">
+				<choose>
+					<when test='mode == "like"'>
+						name like concat('%',#{name},'%')
+					</when>
+					<when test='mode == "equals"'>
+						name = #{name}
+					</when>
+				</choose>
+			</if>
+			<if test="cardID != null">
+				<choose>
+					<when test='mode == "like"'>
+						card_id like concat('%',#{cardID},'%')
+					</when>
+					<when test='mode == "equals"'>
+						card_id = #{cardID}
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+
+	<!-- id查询 -->
+	<select id="getEmployeeById" parameterType="Integer" resultMap="employeeMap"></select>
+
+	<!-- id删除 -->
+	<delete id="deleteEmpolyeeById" parameterType="Integer">
+		delete from
+		employee_info where id = #{id}
+	</delete>
+
+	<insert id="addEmployee" parameterType="employee">
+		insert into
+		employee_info(name,card_id,address,post_code,tel,
+		phone,qq_num,email,sex,party,birthday,race,education,
+		speciality,hobby,remark,create_date,create_by,dept_id,job_id)
+		values(#{name},#{cardId},#{address},#{postCode},#{tel},#{phone},#{qqNum},
+		#{email},#{sex},#{party},#{birthday},#{race},#{education},#{speciality},#{hobby},#{remark},
+		#{createDate},#{createBy},#{department.id},#{job.id})
+	</insert>
+
+	<update id="updateEmployee">
+		update employee_info
+		<set>
+			<if test="name !=null">
+				name = #{name},
+			</if>
+			<if test="cardId !=null">
+				cardId = #{cardId},
+			</if>
+			<if test="address !=null">
+				address = #{address},
+			</if>
+			<if test="postCode !=null">
+				postCode = #{postCode},
+			</if>
+			<if test="tel !=null">
+				tel = #{tel},
+			</if>
+			<if test="phone !=null">
+				phone = #{phone},
+			</if>
+			<if test="qqNum !=null">
+				qqNum = #{qqNum},
+			</if>
+			<if test="email !=null">
+				email = #{email},
+			</if>
+			<if test="sex !=null">
+				sex = #{sex},
+			</if>
+			<if test="party !=null">
+			</if>
+		</set>
+	</update>
+
+	<select id="findEmployeeByDeptId" parameterType="Integer"
+		resultMap="EmpDeptMap">
+		select * from employee_info where dept_id = #{id}
+	</select>
+
+	<resultMap type="employee" id="EmpDeptMap">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+	</resultMap>
+
+
+
+
+</mapper>

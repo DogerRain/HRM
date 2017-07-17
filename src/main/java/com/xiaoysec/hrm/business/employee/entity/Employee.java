@@ -1,14 +1,14 @@
 package com.xiaoysec.hrm.business.employee.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.xiaoysec.hrm.business.department.entity.Department;
 import com.xiaoysec.hrm.business.job.entity.Job;
+import com.xiaoysec.hrm.common.base.BaseEntity;
 
-public class Employee implements Serializable {
+public class Employee extends BaseEntity<Employee> {
 
 	private static final long serialVersionUID = 1L;
 	private Integer id;
@@ -17,22 +17,16 @@ public class Employee implements Serializable {
 	private String name;
 	private String cardId;
 	private String address;
-	private String postCode;
-	private String tel;
 	private String phone;
-	private String qqNum;
 	private String email;
 	private Integer sex;
 	private String party;
-	//接收表单参数的时候需要声明格式
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	// 接收表单参数的时候需要声明格式
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
 	private String race;
 	private String edcation;
-	private String speciality;
-	private String hobby;
 	private String remark;
-	private Date createDate;
 
 	public Employee() {
 
@@ -86,36 +80,12 @@ public class Employee implements Serializable {
 		this.address = address;
 	}
 
-	public String getPostCode() {
-		return postCode;
-	}
-
-	public void setPostCode(String postCode) {
-		this.postCode = postCode;
-	}
-
-	public String getTel() {
-		return tel;
-	}
-
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
-
 	public String getPhone() {
 		return phone;
 	}
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public String getQqNum() {
-		return qqNum;
-	}
-
-	public void setQqNum(String qqNum) {
-		this.qqNum = qqNum;
 	}
 
 	public String getEmail() {
@@ -166,36 +136,12 @@ public class Employee implements Serializable {
 		this.edcation = edcation;
 	}
 
-	public String getSpeciality() {
-		return speciality;
-	}
-
-	public void setSpeciality(String speciality) {
-		this.speciality = speciality;
-	}
-
-	public String getHobby() {
-		return hobby;
-	}
-
-	public void setHobby(String hobby) {
-		this.hobby = hobby;
-	}
-
 	public String getRemark() {
 		return remark;
 	}
 
 	public void setRemark(String remark) {
 		this.remark = remark;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
 	}
 
 }

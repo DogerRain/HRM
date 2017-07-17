@@ -48,35 +48,36 @@ INSERT INTO user_info (id,loginname,`password`,`status`,create_date,username) VA
 
 
 
-CREATE TABLE employee_info (
-     id INT(11) NOT NULL AUTO_INCREMENT,
-     dept_id INT(11) NOT NULL,
-     job_id INT(11) NOT NULL,
-     `name` VARCHAR(20) NOT NULL,
-     card_id VARCHAR(18) NOT NULL,
-     address VARCHAR(50) NOT NULL,
-     post_code VARCHAR(50) DEFAULT NULL,
-     tel VARCHAR(16) DEFAULT NULL,
-     phone VARCHAR(11) NOT NULL,
-     qq_num VARCHAR(20) DEFAULT NULL,
-     email VARCHAR(50) NOT NULL,
-     sex INT(11) NOT NULL DEFAULT 1,
-     party VARCHAR(10) DEFAULT NULL,
-     birthday DATETIME DEFAULT NULL,
-     race VARCHAR(100) DEFAULT NULL,
-     education VARCHAR(10) DEFAULT NULL,
-     speciality VARCHAR(20) DEFAULT NULL,
-     hobby VARCHAR(100) DEFAULT NULL,
-     remark VARCHAR(500) DEFAULT NULL,
-     create_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-     PRIMARY KEY (id),
-     CONSTRAINT FK_EMP_DEPT FOREIGN KEY (dept_id) REFERENCES dept_info (id),
-     CONSTRAINT FK_EMP_JOB FOREIGN KEY (job_id) REFERENCES job_info (id)
-     )ENGINE=INNODB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+CREATE TABLE `employee_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dept_id` int(11) NOT NULL,
+  `job_id` int(11) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `card_id` varchar(18) NOT NULL,
+  `address` varchar(50) NOT NULL,
+  `phone` varchar(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `sex` int(11) NOT NULL DEFAULT '1',
+  `party` varchar(10) DEFAULT NULL,
+  `birthday` datetime DEFAULT NULL,
+  `race` varchar(100) DEFAULT NULL,
+  `education` varchar(10) DEFAULT NULL,
+  `remark` varchar(500) DEFAULT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_by` int(11) DEFAULT NULL,
+  `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `update_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_EMP_DEPT` (`dept_id`),
+  KEY `FK_EMP_JOB` (`job_id`),
+  CONSTRAINT `FK_EMP_DEPT` FOREIGN KEY (`dept_id`) REFERENCES `dept_info` (`id`),
+  CONSTRAINT `FK_EMP_JOB` FOREIGN KEY (`job_id`) REFERENCES `job_info` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
 
 
-INSERT INTO employee_info(id,dept_id,job_id,`name`,card_id,address,post_code,tel,phone,qq_num,email,sex,party,birthday,race,education,speciality,hobby,remark,create_date)
-VALUES (1,1,1,'杨磊','320211199810012522','江苏无锡','214026','0510-82133011','18362972966','1018824255','1018824255@qq.com',0,'党员','1998-10-01 00:00:00','汉','硕士','睡觉',NULL,NULL,CURRENT_TIMESTAMP);
+
+INSERT INTO employee_info(id,dept_id,job_id,`name`,card_id,address,phone,email,sex,party,birthday,race,education,remark,create_date,create_by,update_by.update_date)
+VALUES (1,1,1,'杨磊','320211199810012522','江苏无锡','18362972966','1018824255@qq.com',0,'党员','1998-10-01 00:00:00','汉','硕士',CURRENT_TIMESTAMP,1,now(),1);
 
 
 CREATE TABLE notice_info (
