@@ -56,7 +56,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 		<!-- 不支持通配符 但是支持扫描子包 -->
-		<property name="typeAliasesPackage" value="com.xiaoysec.hrm.business" />
+		<property name="typeAliasesPackage" value="com.xiaoysec.hrm" />
 	</bean>
 
 	<!--<mybatis:scan base-package=""/>是同样的效果-->

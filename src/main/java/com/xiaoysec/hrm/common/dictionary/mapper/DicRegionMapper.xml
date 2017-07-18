@@ -4,7 +4,29 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 省市信息 -->
 <mapper namespace="com.xiaoysec.hrm.common.dictionary.mapper.DicRegionMapper">
-	
 
+	<select id="getProvinceList" resultType="province">
+		select * from t_province
+	</select>
+
+	<select id="getCityList" parameterType="String" resultMap="cityMap">
+		select * from t_province_city where province_code = #{provinceCode}
+	</select>
+
+	<resultMap type="city" id="cityMap">
+		<id column="id" property="id" />
+		<result column="province_code" property="provinceCode" />
+		<result column="province_name" property="provinceName" />
+		<result column="city_code" property="cityCode" />
+		<result column="city_name" property="cityName" />
+	</resultMap>
+	
+	<select id="getCityInfo" resultMap="cityMap">
+		select * from t_province_city
+	</select>
 
 </mapper>
+
+
+
+

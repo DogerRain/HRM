@@ -7,6 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- css -->
 <link href="${ctxIndex}/hrm/js/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="${ctxIndex}/hrm/js/bootstrap/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css">
+<link href="${ctxIndex}/hrm/js/jBox/jbox.css" rel="stylesheet" type="text/css">
 <link href="${ctxIndex}/hrm/css/layout/layout.css" rel="stylesheet" type="text/css">
 <link href="${ctxIndex}/hrm/css/layout/themes/default.css" rel="stylesheet" type="text/css" id="style_color">
 <link href="${ctxIndex}/hrm/css/layout/custom.css" rel="stylesheet" type="text/css">
@@ -21,7 +23,8 @@
 <link href="${ctxIndex}/hrm/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 <!-- js -->
-<script src="${ctxIndex}/hrm/js/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="${ctxIndex}/hrm/js/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="${ctxIndex}/hrm/js/jquery/jquery-migrate.min.js" type="text/javascript"></script>
 <script src="${ctxIndex}/hrm/js/jquery/jquery.validate.min.js" type="text/javascript"></script>
 <script src="${ctxIndex}/hrm/js/jquery/messages_zh.js"	type="text/javascript"></script>
 <script src="${ctxIndex}/hrm/js/bootstrap/js/bootstrap.min.js"	type="text/javascript"></script>
@@ -31,6 +34,10 @@
 <script src="${ctxIndex}/hrm/js/easyui/locale/easyui-lang-zh_CN.js" type="text/javascript" ></script>
 <script src="${ctxIndex}/hrm/js/common/metronic.js" type="text/javascript"></script>
 <script src="${ctxIndex}/hrm/js/common/jquery-dateFormat.min.js" type="text/javascript"></script>
+<script src="${ctxIndex}/hrm/js/bootstrap/js/bootstrap-datetimepicker.min.js"	type="text/javascript"></script>
+<script src="${ctxIndex}/hrm/js/bootstrap/js/bootstrap-datetimepicker.zh-CN.js"	 type="text/javascript"></script>
+<script src="${ctxIndex}/hrm/js/jBox/jquery.jBox-2.3.min.js" type="text/javascript"></script>
+
 
 <title>后台管理系统</title>
 </head>

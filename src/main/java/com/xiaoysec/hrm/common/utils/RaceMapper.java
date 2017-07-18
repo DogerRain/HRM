@@ -1,7 +1,11 @@
 package com.xiaoysec.hrm.common.utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import com.alibaba.fastjson.JSON;
 
 public enum RaceMapper {
 	ACHANGZU("1","阿昌族"),
@@ -34,7 +38,7 @@ public enum RaceMapper {
 	LIZU("28","黎族"),
 	LISUZU("29","傈僳族"),
 	LUOBAZU("30","珞巴族"),
-	MANZU("满族","31"),
+	MANZU("31","满族"),
 	MAONAOZU("32","毛南族"),
 	MENBAZU("33","门巴族"),
 	MENGGUZU("34","蒙古族"),
@@ -101,12 +105,28 @@ public enum RaceMapper {
 		return null;
 	}
 	
-	private static Map<String,String> enumToMap(){
+	public static Map<String,String> enumToMap(){
 		HashMap<String, String> map = new HashMap<String,String>();
 		for(RaceMapper mapper:RaceMapper.values()){
 			map.put(mapper.getCode(), mapper.getName());
 		}
 		return map;
+	}
+	
+	public static List<RaceMapper> enumToList(){
+		ArrayList<RaceMapper> list = new ArrayList<RaceMapper>();
+		for(RaceMapper mapper :RaceMapper.values()){
+			list.add(mapper);
+		}
+		return list;
+	}
+	
+	/**
+	 * 枚举转json字符串
+	 * @return
+	 */
+	public static String  enumToJsonString(){
+		return JSON.toJSONString(enumToMap());
 	}
 
 }
