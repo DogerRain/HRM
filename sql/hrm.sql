@@ -37,7 +37,7 @@ CREATE TABLE user_info(
 	loginname VARCHAR(20) NOT NULL,
 	`password` VARCHAR(16) NOT NULL,
 	`status` INT(11) NOT NULL DEFAULT 1,
-	create_date datetime NOT NULL DEFAULT now(),
+	create_date datetime  DEFAULT now(),
 	username VARCHAR(20) DEFAULT NULL,
 	PRIMARY KEY (id)
 	)ENGINE=INNODB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8; 
@@ -63,9 +63,9 @@ CREATE TABLE `employee_info` (
   `race` varchar(100) DEFAULT NULL,
   `education` varchar(10) DEFAULT NULL,
   `remark` varchar(500) DEFAULT NULL,
-  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_date` timestamp NULL,
   `create_by` int(11) DEFAULT NULL,
-  `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `update_date` timestamp NULL,
   `update_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_EMP_DEPT` (`dept_id`),
