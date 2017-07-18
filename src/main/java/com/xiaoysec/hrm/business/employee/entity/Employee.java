@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.xiaoysec.hrm.business.department.entity.Department;
 import com.xiaoysec.hrm.business.job.entity.Job;
 import com.xiaoysec.hrm.common.base.BaseEntity;
@@ -112,6 +113,7 @@ public class Employee extends BaseEntity<Employee> {
 		this.party = party;
 	}
 
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
 	public Date getBirthday() {
 		return birthday;
 	}

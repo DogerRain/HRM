@@ -93,4 +93,16 @@
 		where id = #{id}
 	</update>
 
+	<select id="findAllEmployee" parameterType="Integer" resultMap="deptEmpMap">
+		select id,name from dept_info where id = #{id}
+	</select>
+	<resultMap type="department" id="deptEmpMap">
+		<id column="id" property="id" />
+		<id column="name" property="name" />
+		<collection property="employeeSet" javaType="java.util.HashSet"
+			column="id" ofType="employee"
+			select="com.xiaoysec.hrm.business.employee.mapper.EmployeeMapper.findEmployeeByDeptId">
+		</collection>
+	</resultMap>
+
 </mapper>

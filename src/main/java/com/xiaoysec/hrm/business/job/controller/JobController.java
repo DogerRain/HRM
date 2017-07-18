@@ -1,5 +1,6 @@
 package com.xiaoysec.hrm.business.job.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,4 +59,21 @@ public class JobController {
 	public Map save(Job job,String hideName,HttpSession session){
 		return jobService.save(job,hideName,session);
 	}
+	
+	@RequestMapping(value = "lookup")
+	public String lookup(Integer selId,Model model){
+		model.addAttribute("selId", selId);
+		return "/business/jobLookup";
+	}
+	
+	@RequestMapping(value = "lookupTable")
+	@ResponseBody
+	public DataGridResultEntity lookupTable(HttpServletRequest request){
+		Page<Job> page = new Page<Job>(request);
+		page = jobService.findList(page, new HashMap<String,Object>());
+		return new DataGridResultEntity(page.getCount(),page.getList());
+	}
+	
+	
+	
 }

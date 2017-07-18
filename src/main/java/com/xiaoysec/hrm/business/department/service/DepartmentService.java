@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xiaoysec.hrm.business.department.entity.Department;
 import com.xiaoysec.hrm.business.department.mapper.DepartmentMapper;
+import com.xiaoysec.hrm.business.employee.entity.Employee;
 import com.xiaoysec.hrm.business.user.entity.User;
 import com.xiaoysec.hrm.common.base.Page;
 
@@ -91,7 +93,7 @@ public class DepartmentService {
 			result.put("message", "部门【" + department.getName() + "】保存成功");
 		} catch (Exception e) {
 			result.put("success", false);
-			result.put("message", "部门保存失败:"+e.getMessage());
+			result.put("message", "部门保存失败:" + e.getMessage());
 		}
 		return result;
 	}
@@ -108,6 +110,11 @@ public class DepartmentService {
 		parm.put("mode", "equals");
 		Integer deptCount = departmentMapper.getDeptCount(parm);
 		return deptCount > 0 ? true : false;
+	}
+
+	// 获取该部门所有的员工
+	public Department findAllEmployee(Integer id) {
+		return departmentMapper.findAllEmployee(id);
 	}
 
 }

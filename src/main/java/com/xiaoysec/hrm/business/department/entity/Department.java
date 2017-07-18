@@ -1,13 +1,17 @@
 package com.xiaoysec.hrm.business.department.entity;
 
+import java.util.Set;
+
+import com.xiaoysec.hrm.business.employee.entity.Employee;
 import com.xiaoysec.hrm.common.base.BaseEntity;
 
-public class Department extends BaseEntity<Department>{
+public class Department extends BaseEntity<Department> {
 
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
 	private String remark;
+	private Set<Employee> employeeSet;
 
 	public Integer getId() {
 		return id;
@@ -31,6 +35,14 @@ public class Department extends BaseEntity<Department>{
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public Set<Employee> getEmployeeSet() {
+		return employeeSet;
+	}
+
+	public void setEmployeeSet(Set<Employee> employeeSet) {
+		this.employeeSet = employeeSet;
 	}
 
 }

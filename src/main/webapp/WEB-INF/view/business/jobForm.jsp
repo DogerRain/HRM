@@ -75,7 +75,7 @@
 						<div class="form-actions">
 							<div class="row">
 								<div class="col-md-offset-1 col-md-9">
-									<button type="button" class="btn default return" onclick="location.href ='${ctx}/job'">取消</button>
+									<button type="button" class="btn default return" onclick="location.href ='${ctx}/job/list'">取消</button>
 									<button type="submit" class="btn green">提交</button>
 									<!-- 
 									<shiro:hasPermission name="sys:role:edit">
@@ -114,7 +114,7 @@ var initFormValidate = function(){
 				var message = data.message;
 				if(success == true){
 					bootbox.alert(message, function() {
- 						$('.return').trigger("click");
+ 						$('.btn_return').trigger("click");
                 	});
 				}else{
 					bootbox.alert(message);

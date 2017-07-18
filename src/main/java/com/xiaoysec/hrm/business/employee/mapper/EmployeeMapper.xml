@@ -25,9 +25,8 @@
 
 	<resultMap type="employee" id="employeeMap" autoMapping="true">
 		<id column="id" property="id" />
+		<result column="education" property="edcation" />
 		<result column="card_id" property="cardId" />
-		<result column="post_code" property="postCode" />
-		<result column="qq_num" property="qqNum" />
 		<result column="create_date" property="createDate" javaType="java.util.Date"
 			jdbcType="TIMESTAMP" />
 		<result column="update_date" property="updateDate" javaType="java.util.Date"
@@ -42,8 +41,7 @@
 			<id column="id" property="id" />
 			<result column="username" property="username" />
 		</association>
-		<association property="department" column="dept_id"
-			javaType="department">
+		<association property="department" column="dept_id" javaType="department">
 			<id column="did" property="id" />
 			<result column="dname" property="name" />
 		</association>
@@ -81,7 +79,15 @@
 	</select>
 
 	<!-- id查询 -->
-	<select id="getEmployeeById" parameterType="Integer" resultMap="employeeMap"></select>
+	<select id="getEmployeeById" parameterType="Integer" resultMap="employeeMap">
+		select
+		e.*,d.id AS did,d.name AS dname,j.id AS jid,j.name AS jname
+		from
+		employee_info e left join
+		dept_info d
+		on e.dept_id = d.id left join
+		job_info j on e.job_id = j.id where e.id = #{id}
+	</select>
 
 	<!-- id删除 -->
 	<delete id="deleteEmpolyeeById" parameterType="Integer">
@@ -91,37 +97,28 @@
 
 	<insert id="addEmployee" parameterType="employee">
 		insert into
-		employee_info(name,card_id,address,post_code,tel,
-		phone,qq_num,email,sex,party,birthday,race,education,
-		speciality,hobby,remark,create_date,create_by,dept_id,job_id)
-		values(#{name},#{cardId},#{address},#{postCode},#{tel},#{phone},#{qqNum},
-		#{email},#{sex},#{party},#{birthday},#{race},#{education},#{speciality},#{hobby},#{remark},
-		#{createDate},#{createBy},#{department.id},#{job.id})
+		employee_info(name,card_id,address,
+		phone,email,sex,party,birthday,race,education,
+		remark,create_date,create_by,dept_id,job_id)
+		values(#{name},#{cardId},#{address},#{phone},
+		#{email},#{sex},#{party},#{birthday},#{race},#{edcation},#{remark},
+		#{createDate},#{createBy.id},#{department.id},#{job.id})
 	</insert>
 
-	<update id="updateEmployee">
+	<update id="updateEmployee" parameterType="employee">
 		update employee_info
 		<set>
 			<if test="name !=null">
 				name = #{name},
 			</if>
 			<if test="cardId !=null">
-				cardId = #{cardId},
+				card_id = #{cardId},
 			</if>
 			<if test="address !=null">
 				address = #{address},
 			</if>
-			<if test="postCode !=null">
-				postCode = #{postCode},
-			</if>
-			<if test="tel !=null">
-				tel = #{tel},
-			</if>
 			<if test="phone !=null">
 				phone = #{phone},
-			</if>
-			<if test="qqNum !=null">
-				qqNum = #{qqNum},
 			</if>
 			<if test="email !=null">
 				email = #{email},
@@ -130,8 +127,34 @@
 				sex = #{sex},
 			</if>
 			<if test="party !=null">
+				party = #{party},
+			</if>
+			<if test="birthday !=null">
+				birthday = #{birthday},
+			</if>
+			<if test="race !=null">
+				race = #{race},
+			</if>
+			<if test="edcation !=null">
+				education = #{edcation},
+			</if>
+			<if test="remark !=null">
+				remark = #{remark},
+			</if>
+			<if test="updateDate !=null">
+				update_date = #{updateDate},
+			</if>
+			<if test="updateBy !=null">
+				update_by = #{updateBy.id},
+			</if>
+			<if test="department != null">
+				dept_id = #{department.id},
+			</if>
+			<if test="job != null">
+				job_id = #{job.id}
 			</if>
 		</set>
+		where id = #{id}
 	</update>
 
 	<select id="findEmployeeByDeptId" parameterType="Integer"

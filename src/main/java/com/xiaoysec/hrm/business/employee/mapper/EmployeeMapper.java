@@ -29,5 +29,5 @@ public interface EmployeeMapper {
 	public void addEmployee(Employee employee);
 
 	// 更新员工信息
-	public void updateEmployee(Integer id);
+	public void updateEmployee(Employee employee);
 }
