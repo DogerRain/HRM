@@ -79,17 +79,6 @@ CREATE TABLE `employee_info` (
 INSERT INTO employee_info(dept_id,job_id,`name`,card_id,address,phone,email,sex,party,birthday,race,education,remark,create_date,create_by,update_by,update_date)
 VALUES (1,1,'杨磊','320211199810012522','江苏无锡','18362972966','1018824255@qq.com',0,'党员','1998-10-01 00:00:00','汉','硕士',NULL,NOW(),1,NOW(),1);
 
-
-CREATE TABLE notice_info (
-    id INT(11) NOT NULL AUTO_INCREMENT,
-    title VARCHAR(50) NOT NULL,
-    content TEXT NOT NULL,
-    create_time datetime NOT NULL DEFAULT now(),
-    user_id INT(11) DEFAULT NULL,
-    PRIMARY KEY (id),
-    CONSTRAINT FK_NOTICE_USER FOREIGN KEY (user_id) REFERENCES user_info (id)
-    )ENGINE=INNODB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-
 CREATE TABLE `document_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,

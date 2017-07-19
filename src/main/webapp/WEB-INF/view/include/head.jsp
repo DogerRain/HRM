@@ -57,9 +57,6 @@
 						<a data-hover="megamenu-dropdown" data-close-others="true" href="/HRM/a/employee/list">员工管理</a>
 					</li>
 					<li class="menu-dropdown classic-menu-dropdown">
-						<a data-hover="megamenu-dropdown" data-close-others="true" href="/HRM/a/notice/list">通知管理</a>
-					</li>
-					<li class="menu-dropdown classic-menu-dropdown">
 						<a data-hover="megamenu-dropdown" data-close-others="true" href="/HRM/a/doc/list">文档管理</a>
 					</li>
 					<li class="menu-dropdown classic-menu-dropdown">
