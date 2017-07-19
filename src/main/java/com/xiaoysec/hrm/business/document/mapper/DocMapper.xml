@@ -38,7 +38,8 @@
 	</resultMap>
 
 
-	<select id="getDocCount" parameterType="java.util.Map" resultType="Integer">
+	<select id="getDocCount" parameterType="java.util.Map"
+		resultType="Integer">
 		select count(*) from document_info
 		<where>
 			<if test="title != null">
@@ -53,7 +54,45 @@
 			</if>
 		</where>
 		<if test="start != null and size != null">
-				limit #{start},#{size}
+			limit #{start},#{size}
 		</if>
 	</select>
+
+	<select id="getDocById" parameterType="Integer" resultMap="docMap">
+		select * from document_info where id =#{id}
+	</select>
+
+	<delete id="deleteDocById" parameterType="Integer">
+		delete from
+		document_info where id = #{id}
+	</delete>
+
+	<insert id="addDoc" parameterType="document">
+		insert into
+		document_info(title,filename,remark,create_date,create_by)
+		values
+		(#{title},#{fileName},#{remark},#{createDate},#{createBy.id})
+	</insert>
+	
+	<update id="updateDoc" parameterType="document">
+		update document_info 
+		<set>
+			<if test="title != null">
+				title = #{title},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			<if test="fileName != null">
+				filename = #{fileName},
+			</if>
+			<if test="updateBy != null">
+				update_by = #{updateBy.id},
+			</if>
+			<if test="updateDate != null">
+				update_date = #{updateDate},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
 </mapper>

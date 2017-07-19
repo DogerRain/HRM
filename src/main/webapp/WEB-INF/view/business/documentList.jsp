@@ -101,7 +101,7 @@
 			columns:[[
 				{field:'id',title:'ID',width:50,align:'center'},
 				{field:'title',title:'标题',width:100,align:'center'},
-				{field:'fileName',title:'文件名',width:100,align:'center'},
+				{field:'fileName',title:'文件名',width:200,align:'center'},
 				{field:'remark',title:'备注',width:100,align:'center'},
 				{field:'createBy',title:'创建人',width:80,align:'center',
 					formatter:function(value,row,index){

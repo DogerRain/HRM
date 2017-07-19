@@ -24,6 +24,7 @@
 
 <!-- js -->
 <script src="${ctxIndex}/hrm/js/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="${ctxIndex}/hrm/js/jquery/jquery.form.js" type="text/javascript"></script>
 <script src="${ctxIndex}/hrm/js/jquery/jquery-migrate.min.js" type="text/javascript"></script>
 <script src="${ctxIndex}/hrm/js/jquery/jquery.validate.min.js" type="text/javascript"></script>
 <script src="${ctxIndex}/hrm/js/jquery/messages_zh.js"	type="text/javascript"></script>

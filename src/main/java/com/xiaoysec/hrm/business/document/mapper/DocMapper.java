@@ -12,4 +12,16 @@ public interface DocMapper {
 
 	//分页查询
 	public List<Document> findList(Map<String, Object> query);
+
+	//id查询
+	public Document getDocById(Integer id);
+
+	//删除
+	public void deleteDocById(Integer id);
+
+	//新增
+	public void addDoc(Document document);
+
+	//修改
+	public void updateDoc(Document document);
 }

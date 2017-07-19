@@ -37,9 +37,9 @@
 					</div>
 				</div>
 				<div class="portlet-body form">
-					<form id="documentForm" action="${ctx}/doc/save" method="post" class="form-horizontal">
+					<form id="documentForm" action="${ctx}/doc/upload" method="post" enctype="multipart/form-data"  class="form-horizontal">
 						<input type="hidden" name="id" value="${document.id}"/>
-						<input type="hidden" name="hideName" value="${document.name}"/>
+						<input type="hidden" name="hideTitle" value="${document.title}"/>
 						<div class="form-body">
 							<div class="form-group">
 								<label class="control-label col-md-1" for="title">
@@ -49,7 +49,7 @@
 									<input type="text" class="form-control notnull" id="title" name="title" value="${document.title}" placeholder="标题"/>
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group" name="uploadFile">
 								<label class="control-label col-md-1" for="file">
 								上传文件:<span class="required" aria-required="true">*</span>
 								</label>
@@ -84,7 +84,7 @@
 							<div class="row">
 								<div class="col-md-offset-1 col-md-9">
 									<button type="button" class="btn default return" onclick="location.href ='${ctx}/doc/list'">取消</button>
-									<button type="submit" class="btn green">提交</button>
+									<button type="submit" class="btn green save">提交</button>
 									<!-- 
 									<shiro:hasPermission name="sys:role:edit">
 										<button type="submit" class="btn green">提交</button>
@@ -112,26 +112,11 @@ var initFormValidate = function(){
 		 	title:{
 		 		required:"文档标题不能为空",
 		 	}
-		},
-		submitHandler:function(form){
-			//使用ajax提交数据
-			$.post($(form).attr('action'),$(form).serialize(),'json')
-			.done(function(data){
-		//		Metronic.stopPageLoading();
-				var success = data.success;
-				var message = data.message;
-				if(success == true){
-					bootbox.alert(message, function() {
- 						$('.btn_return').trigger("click");
-                	});
-				}else{
-					bootbox.alert(message);
-				}
-			});
 		}
 	});
-}	
-
+}
+		
+	
 
 var pageEvent = {
 	initPageEvent:function(){
@@ -139,8 +124,34 @@ var pageEvent = {
 		if('${empty document.id}' == 'true'){
 			$('div[name="createByField"]').hide();
 			$('div[name="createDateField"]').hide();
+		}else{
+			$("div[name='uploadFile']").hide();
 		}
 	},
+	
+	initSaveBtn:function(){
+		//ajax提交表单
+		$(".save").on("click",function(){
+			$("#documentForm").ajaxSubmit({
+				dataType:'json',
+				type:'post',
+				success:function(data){
+					var success = data.success;
+					var message = data.message;
+					if(success == true){
+						bootbox.alert(message, function() {
+	 						$('.btn_return').trigger("click");
+	                	});
+					}else{
+						bootbox.alert(message);
+					}
+				},
+				error:function(data){
+				}
+			});
+		});
+	},
+	
 	dateFormat:function(){
 		if($('.dateformat').val() != ""){
 			$('.dateformat').val($.format.date($('.dateformat').val(),'yyyy-MM-dd HH:mm:ss'));
@@ -151,6 +162,7 @@ jQuery(document).ready(function(){
 	//Metronic.init();
 	pageEvent.initPageEvent();
 	pageEvent.dateFormat();
+	pageEvent.initSaveBtn();
 	initFormValidate();
 });
 </script>

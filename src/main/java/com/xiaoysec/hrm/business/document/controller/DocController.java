@@ -1,5 +1,6 @@
 package com.xiaoysec.hrm.business.document.controller;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,20 +50,22 @@ public class DocController {
 		return "/business/documentForm";
 	}
 
-	@RequestMapping(value = "save")
-	@ResponseBody
-	public Map save(Document document) {
-		return docService.save(document);
-	}
-
+	//上传文件
 	@RequestMapping(value = "upload")
 	@ResponseBody
-	public Map upload(Document document, HttpSession session) {
-		return docService.upload(document, session);
+	public Map upload(Document document, HttpSession session,String hideTitle) {
+		return docService.upload(document, session,hideTitle);
 	}
 	
+	//下载文件
 	@RequestMapping(value = "download")
-	public ResponseEntity<byte[]> download(Document document){
-		return docService.download(document.getFileName());
+	public ResponseEntity<byte[]> download(Document document,HttpServletRequest request) throws IOException{
+		return docService.download(document.getId(),request);
+	}
+	
+	@RequestMapping(value = "delete")
+	public String delete(Integer id){
+		docService.deleteDocById(id);
+		return "/business/documentList";
 	}
 }
