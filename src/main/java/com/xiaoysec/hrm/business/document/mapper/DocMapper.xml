@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xiaoysec.hrm.business.document.mapper.DocMapper">
+	<select id="findList" parameterType="java.util.Map" resultMap="docMap">
+		select * from document_info
+		<where>
+			<if test="title != null">
+				<choose>
+					<when test='mode == "like"'>
+						title like concat('%',#{title},'%')
+					</when>
+					<when test='mode == "equals"'>
+						title = #{title}
+					</when>
+				</choose>
+			</if>
+		</where>
+		<if test="start != null and size != null">
+			limit #{start},#{size}
+		</if>
+	</select>
+
+	<resultMap type="document" id="docMap">
+		<result property="fileName" column="filename" />
+		<result property="createDate" column="create_date" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<association property="createBy" column="create_by"
+			select="com.xiaoysec.hrm.business.user.mapper.UserMapper.getUserById">
+		</association>
+		<association property="updateBy" column="update_by"
+			select="com.xiaoysec.hrm.business.user.mapper.UserMapper.getUserById">
+		</association>
+	</resultMap>
+
+
+	<select id="getDocCount" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from document_info
+		<where>
+			<if test="title != null">
+				<choose>
+					<when test='mode == "like"'>
+						title like concat('%',#{title},'%')
+					</when>
+					<when test='mode == "equals"'>
+						title = #{title}
+					</when>
+				</choose>
+			</if>
+		</where>
+		<if test="start != null and size != null">
+				limit #{start},#{size}
+		</if>
+	</select>
+</mapper>

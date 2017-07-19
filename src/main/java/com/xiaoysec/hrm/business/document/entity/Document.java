@@ -1,23 +1,19 @@
 package com.xiaoysec.hrm.business.document.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xiaoysec.hrm.business.user.entity.User;
+import com.xiaoysec.hrm.common.base.BaseEntity;
 
-public class Document implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Document extends BaseEntity<Document> {
 
 	private Integer id;
 	private String title;
 	private String fileName;
 	private MultipartFile file;
 	private String remark;
-	private Date createDate;
-	private User user;
 
 	public Document() {
 
@@ -71,12 +67,5 @@ public class Document implements Serializable {
 		this.createDate = createDate;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 }

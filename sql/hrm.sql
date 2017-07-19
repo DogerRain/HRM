@@ -90,16 +90,18 @@ CREATE TABLE notice_info (
     CONSTRAINT FK_NOTICE_USER FOREIGN KEY (user_id) REFERENCES user_info (id)
     )ENGINE=INNODB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
- CREATE TABLE document_info(
-    id INT(11) NOT NULL AUTO_INCREMENT,
-    title VARCHAR(50) NOT NULL,
-    filename VARCHAR(300) NOT NULL,
-    remark VARCHAR(300) DEFAULT NULL,
-    create_date datetime  NOT NULL DEFAULT now(),
-    user_id INT(11) DEFAULT NULL,
-    PRIMARY KEY (id),
-    CONSTRAINT FK_DOCUMENT_USER FOREIGN KEY (user_id) REFERENCES user_info (id)
-    )ENGINE=INNODB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+CREATE TABLE `document_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) NOT NULL,
+  `filename` varchar(300) NOT NULL,
+  `remark` varchar(300) DEFAULT NULL,
+  `create_date` timestamp NULL DEFAULT NULL,
+  `create_by` int(11) DEFAULT NULL,
+  `update_date` timestamp NULL DEFAULT NULL,
+  `update_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
 
 CREATE TABLE `t_province` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
